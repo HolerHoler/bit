@@ -4,8 +4,7 @@ import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     name: "home",
     component: Home
@@ -17,7 +16,12 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import( /* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/index",
+    name: "index",
+    component: () => import("../views/index/Index.vue")
   }
 ];
 
@@ -26,5 +30,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+// 跳转后返回顶部
+// router.afterEach((to, from, next) => {
+//   window.scrollTo(0, 0);
+// });
 
 export default router;
