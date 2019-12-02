@@ -1,19 +1,65 @@
 <template>
   <div>
     <a-card style="width: 100%;margin-top:20px" :bordered=false>
-
+      <a-row :gutter="16">
+        <a-col :span="6">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>广告策划、制作及发布</p>
+          </a-card>
+        </a-col>
+        <a-col :span="6">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>影视制作</p>
+          </a-card>
+        </a-col>
+        <a-col :span="6">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>编程及系统开发</p>
+          </a-card>
+        </a-col>
+        <a-col :span="6">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>新媒体应用及营运</p>
+          </a-card>
+        </a-col>
+      </a-row>
       <template class="ant-card-actions" slot="actions">
         <span>查看更多</span>
       </template>
       <template slot="title">
-        <p>我是name为header的slot</p>
+        <span>业务领域</span>
       </template>
     </a-card>
 
     <a-card style="width: 100%;margin-top:20px" :bordered=false>
       <template slot="title">
-        <p>我是name为header的slot</p>
+        <span>分支结构</span>
       </template>
+
+      <a-row :gutter="16">
+        <a-col :span="8">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>广告策划、制作及发布</p>
+          </a-card>
+        </a-col>
+        <a-col :span="8">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>影视制作</p>
+          </a-card>
+        </a-col>
+        <a-col :span="8">
+          <a-card :hoverable=true>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <p>编程及系统开发</p>
+          </a-card>
+        </a-col>
+      </a-row>
     </a-card>
 
     <a-card style="width: 100%;margin-top:20px" :bordered=false>
@@ -23,7 +69,7 @@
 
       </template>
       <template slot="title">
-        <p>我是name为header的slot</p>
+        <span>公司动态</span>
       </template>
     </a-card>
 
