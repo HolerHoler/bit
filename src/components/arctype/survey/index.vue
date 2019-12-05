@@ -1,18 +1,17 @@
 <template>
   <div>
 
-    <a-card style="width:80%;margin-top:20px" :tabList="tabList" :activeTabKey="activeTabKey"
-      @tabChange="key => onTabChange(key, 'activeTabKey')">
-      <div v-if="activeTabKey==='1'">
+    <a-tabs defaultActiveKey="1">
+      <a-tab-pane tab="Tab 1" key="1">
         <component-survey></component-survey>
-      </div>
-      <div v-else-if="activeTabKey==='2'">
+      </a-tab-pane>
+      <a-tab-pane tab="Tab 2" key="2">
         <component-team></component-team>
-      </div>
-      <div v-else-if="activeTabKey==='3'">
+      </a-tab-pane>
+      <a-tab-pane tab="Tab 3" key="3">
         <component-welfare></component-welfare>
-      </div>
-    </a-card>
+      </a-tab-pane>
+    </a-tabs>
 
   </div>
 </template>
