@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 领域 -->
     <a-card style="width: 80%;margin-top:20px;" :bordered="false">
       <a-row :gutter="16">
         <a-col :span="6">
@@ -31,10 +32,15 @@
         <span>查看更多</span>
       </template>
       <template slot="title">
-        <span>业务领域</span>
-        <span>Business areas</span>
+        <div class="c-title">
+          <span>业务领域</span><br />
+          <span>Business areas</span>
+        </div>
       </template>
+
     </a-card>
+
+    <!-- 分支 -->
 
     <a-card style="width: 80%;margin-top:20px" :bordered=false>
       <a-row :gutter="16">
@@ -58,23 +64,30 @@
         </a-col>
       </a-row>
       <template slot="title">
-        <span>分支结构</span>
-        <span>Branch</span>
+        <div class="c-title">
+          <span>分支结构</span><br />
+          <span>Branch</span>
+        </div>
       </template>
     </a-card>
+
+    <!-- 动态 -->
 
     <a-card style="width: 80%;margin-top:20px;" :bordered=false>
 
       <template class="ant-card-actions" slot="actions">
         <span>查看更多</span>
-
       </template>
       <template slot="title">
-        <span>公司动态</span>
-        <span>Company dynamic</span>
+        <div class="c-title">
+          <span>公司动态</span><br />
+          <span>Company dynamic</span>
+        </div>
       </template>
     </a-card>
+
   </div>
+
 </template>
 
 <script>
