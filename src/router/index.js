@@ -34,8 +34,19 @@ const routes = [{
   {
     path: "/domain",
     name: "domain",
-    component: () => import("@/components/arctype/domain/index.vue")
-  }, , {
+    component: () => import("@/components/arctype/domain/index.vue"),
+    // children: [
+    //   {
+    //     path: "detail/:aid",
+    //     name: "detail",
+    //     component: () => import("@/components/arctype/domain/detail.vue")
+    //   },
+    // ]
+  }, {
+    path: "/domain/detail/:aid",
+    name: "detail",
+    component: () => import("@/components/arctype/domain/detail.vue")
+  }, {
     path: "/management",
     name: "management",
     component: () => import("@/components/arctype/management/index.vue")
@@ -49,9 +60,9 @@ const routes = [{
     component: () => import("@/components/arctype/dynamic/index.vue")
   },
   {
-    path: '/article/:aid',
-    name: "article",
-    component: () => import("@/components/arctype/article.vue")
+    path: '/hotArticle/:aid',
+    name: "hotArticle",
+    component: () => import("@/components/arctype/hotArticle.vue")
   }
   ],
 },
