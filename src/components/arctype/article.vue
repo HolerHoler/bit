@@ -1,17 +1,21 @@
 <template>
-    <div>
-
-    </div>
+  <div>
+    <a-checkbox>Checkbox</a-checkbox>
+  </div>
 </template>
 
 
 <script>
-export default {
-  name: "article",
-  data() {
-    return {};
-  }
-};
+  export default {
+    name: "article",
+    components: {},
+    mounted() {
+      console.log(this.$router.params.aid);
+    },
+    data() {
+      return {};
+    }
+  };
 </script>
 
 <style scoped>

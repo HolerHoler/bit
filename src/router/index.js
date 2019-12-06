@@ -5,51 +5,56 @@ import Home from "../views/Home.vue";
 Vue.use(VueRouter);
 
 const routes = [{
+  path: "/",
+  name: "home",
+  component: Home
+},
+{
+  path: "/about",
+  name: "about",
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: () =>
+    import( /* webpackChunkName: "about" */ "../views/About.vue")
+},
+{
+  path: "/index",
+  name: "index",
+  component: () => import("../views/index/Index.vue"),
+  children: [{
     path: "/",
-    name: "home",
-    component: Home
+    component: () => import("@/components/index/index.vue")
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import( /* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/survey",
+    name: "survey",
+    component: () => import("@/components/arctype/survey/index.vue")
   },
   {
-    path: "/index",
-    name: "index",
-    component: () => import("../views/index/Index.vue"),
-    children: [{
-        path: "/",
-        component: () => import("@/components/index/index.vue")
-      },
-      {
-        path: "/survey",
-        name: "survey",
-        component: () => import("@/components/arctype/survey/index.vue")
-      },
-      {
-        path: "/domain",
-        name: "domain",
-        component: () => import("@/components/arctype/domain/index.vue")
-      }, , {
-        path: "/management",
-        name: "management",
-        component: () => import("@/components/arctype/management/index.vue")
-      }, {
-        path: "/branch",
-        name: "branch",
-        component: () => import("@/components/arctype/branch/index.vue")
-      }, {
-        path: "/dynamic",
-        name: "dynamic",
-        component: () => import("@/components/arctype/dynamic/index.vue")
-      }
-    ],
+    path: "/domain",
+    name: "domain",
+    component: () => import("@/components/arctype/domain/index.vue")
+  }, , {
+    path: "/management",
+    name: "management",
+    component: () => import("@/components/arctype/management/index.vue")
+  }, {
+    path: "/branch",
+    name: "branch",
+    component: () => import("@/components/arctype/branch/index.vue")
+  }, {
+    path: "/dynamic",
+    name: "dynamic",
+    component: () => import("@/components/arctype/dynamic/index.vue")
   },
+  {
+    path: '/article/:aid',
+    name: "article",
+    component: () => import("@/components/arctype/article.vue")
+  }
+  ],
+},
   // {
   //   path: "/index",
   //   name: "index",

@@ -1,19 +1,19 @@
 <template>
   <div>
 
-        <a-card style="width: 80%;margin-top:20px" :bordered=false>
-          <a-row :gutter="16">
-            <template v-for="(domain,index) in domainList">
-              <a-col :key="index" :xs="24" :md="8">
-                <a-card :hoverable=true style="margin-bottom:20px">
-                  <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    slot="cover" />
-                  <p>{{domain.name}}</p>
-                </a-card>
-              </a-col>
-            </template>
-          </a-row>
-        </a-card>
+    <div style="width: 80%;margin-top:20px;">
+      <a-row :gutter="16" type="flex" justify="center">
+        <template v-for="(domain,index) in domainList">
+          <a-col :key="index" :xs="24" :md="8">
+            <a-card :hoverable=true style="margin-bottom:20px;" @click="goDomainDetail(domain.id)">
+              <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                slot="cover" />
+              <p>{{domain.name}}</p>
+            </a-card>
+          </a-col>
+        </template>
+      </a-row>
+    </div>
 
   </div>
 </template>
@@ -50,6 +50,13 @@
           }
         ]
       };
+    },
+    methods: {
+      goDomainDetail(aid) {
+        this.$router.push({
+          path: `/article/${aid}`
+        })
+      }
     }
   };
 </script>

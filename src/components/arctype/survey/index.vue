@@ -1,18 +1,18 @@
 <template>
   <div>
-
-    <a-tabs defaultActiveKey="1">
-      <a-tab-pane tab="Tab 1" key="1">
-        <component-survey></component-survey>
-      </a-tab-pane>
-      <a-tab-pane tab="Tab 2" key="2">
-        <component-team></component-team>
-      </a-tab-pane>
-      <a-tab-pane tab="Tab 3" key="3">
-        <component-welfare></component-welfare>
-      </a-tab-pane>
-    </a-tabs>
-
+    <div style="margin-top:20px">
+      <a-tabs defaultActiveKey="1">
+        <a-tab-pane tab="Tab 1" key="1">
+          <component-survey></component-survey>
+        </a-tab-pane>
+        <a-tab-pane tab="Tab 2" key="2">
+          <component-team></component-team>
+        </a-tab-pane>
+        <a-tab-pane tab="Tab 3" key="3">
+          <component-welfare></component-welfare>
+        </a-tab-pane>
+      </a-tabs>
+    </div>
   </div>
 </template>
 

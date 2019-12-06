@@ -6,8 +6,10 @@
 
                 </a-col>
                 <a-col :span="12" :xs="24" :md="12">
-                    <a-menu mode="horizontal" @click="onMenuClick">
-                        <a-menu-item v-for="menu in menuList " :key="menu.key">{{menu.name}}</a-menu-item>
+                    <a-menu mode="horizontal">
+                        <a-menu-item v-for="menu in menuList " :key="menu.key">
+                            <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
+                        </a-menu-item>
                         <!-- <a-menu-item>首页</a-menu-item>
                              <a-menu-item>公司概况 </a-menu-item>
                         <a-menu-item>业务领域</a-menu-item>
@@ -26,22 +28,27 @@
         menuList = [{
             key: "1",
             name: "首页",
-            path: ""
+            path: "/index"
         }, {
             key: "2",
-            name: "公司概况"
+            name: "公司概况",
+            path: "/survey"
         }, {
             key: "3",
-            name: "业务领域"
+            name: "业务领域",
+            path: "/domain"
         }, {
             key: "4",
-            name: "管理层信息"
+            name: "管理层信息",
+            path: "/management"
         }, {
             key: "5",
-            name: "分支结构"
+            name: "分支结构",
+            path: "/branch"
         }, {
             key: "6",
-            name: "公司动态"
+            name: "公司动态",
+            path: "/dynamic"
         }];
 
     export default {
@@ -54,12 +61,7 @@
         },
         created() {},
         methods: {
-            onMenuClick(item) {
-                console.log(item.key);
-                this.$router.push({
-                    path: "/domain"
-                })
-            },
+
         },
 
     };

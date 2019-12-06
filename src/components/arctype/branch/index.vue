@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div style="width: 80%;margin-top:20px;" >
-      <a-row :gutter="16">
+    <div style="width: 80%;margin-top:20px;">
+      <a-row :gutter="16" type="flex" justify="center">
         <template v-for="(branch,index) in branchList">
-          <a-col :span="8" :key="index">
-            <a-card :hoverable=true>
+          <a-col :key="index" :xs=24 :md=8>
+            <a-card :hoverable=true style="margin-bottom:20px;">
               <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                 slot="cover" />
               <p>{{branch.name}}</p>
