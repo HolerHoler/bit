@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card style="width: 80%;margin-top:20px;" :bordered=false>
+    <div style="width: 80%;margin-top:20px;" >
       <a-row :gutter="16">
         <template v-for="(branch,index) in branchList">
           <a-col :span="8" :key="index">
@@ -12,7 +12,7 @@
           </a-col>
         </template>
       </a-row>
-    </a-card>
+    </div>
   </div>
 </template>
 
