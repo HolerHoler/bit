@@ -24,6 +24,8 @@
 </template>
 
 <script>
+    import http from "@/config/http.js";
+
     const
         menuList = [{
             key: "1",
@@ -60,8 +62,23 @@
             };
         },
         created() {},
+        mounted() {
+            this.getMenuList();
+        },
         methods: {
-
+            getMenuList() {
+                var params = {
+                    source: "arctype",
+                    conditions: JSON.stringify([{
+                        fieldName: "topid",
+                        operator: "EQ",
+                        value: 0
+                    }])
+                };
+                http.get("/restController.php", params).then(res => {
+                    console.log(res.data);
+                })
+            }
         },
 
     };

@@ -1,18 +1,46 @@
 import axios from "axios";
-import Vue from "vue";
 import qs from "qs";
+import {
+    timeout
+} from "q";
+
+const isDev = process.env.NODE_ENV === "development";
+let axiosBaseUrl = '';
+if (isDev) {
+    axiosBaseUrl = "http://localhost:81/php/bit";
+} else {
+    axiosBaseUrl = "http://localhost:81/php/bit";
+}
+
+const service = axios.create({
+    baseURL: axiosBaseUrl,
+    timeout: 5000,
+    crossDomain: true,
+});
+
+// service.interceptors.response.use((response) => {
+//     var statusCode = response.status;
+//     switch (statusCode) {
+//         case 200:
+//             return response.data;
+//             break;
+//         default:
+//             break;
+//     }
+// }, err);
+
 export default {
     // lang:'English',
     // lang=Tradition
 
     get(url, params) {
-        let local = window.localStorage;
-        if (local.getItem("showType")) {
-            params.lang = local.getItem("showType");
-        }
+        // let local = window.localStorage;
+        // if (local.getItem("showType")) {
+        //     params.lang = local.getItem("showType");
+        // }
         // params.lang = 'Tradition';
         return new Promise((resolve, reject) => {
-            axios.get(url, {
+            service.get(url, {
                 params: params
             }).then(res => {
                 resolve(res.data);
@@ -23,12 +51,12 @@ export default {
     },
     post(url, data) {
         // data.lang = 'Tradition';
-        let local = window.localStorage;
-        if (local.getItem("showType")) {
-            data.lang = local.getItem("showType")
-        }
+        // let local = window.localStorage;
+        // if (local.getItem("showType")) {
+        //     data.lang = local.getItem("showType")
+        // }
         return new Promise((resolve, reject) => {
-            axios.post(url, qs.stringify(data)).then(res => {
+            service.post(url, qs.stringify(data)).then(res => {
                 resolve(res.data)
             }).catch(err => {
                 reject(err)

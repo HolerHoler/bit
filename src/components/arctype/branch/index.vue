@@ -18,6 +18,8 @@
 
 
 <script>
+  import http from "@/config/http.js";
+
   export default {
     name: "index",
     data() {
@@ -36,6 +38,24 @@
           }
         ]
       };
+    },
+    mounted() {
+      this.getBranchList();
+    },
+    methods: {
+      getBranchList() {
+        var params = {
+          source: "archives",
+          conditions: JSON.stringify([{
+            fieldName: "typeid",
+            operator: "EQ",
+            value: 5
+          }])
+        };
+        http.get("/restController.php", params).then(res => {
+          console.log(res.data);
+        })
+      }
     }
   };
 </script>
