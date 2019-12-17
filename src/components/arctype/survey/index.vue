@@ -1,16 +1,20 @@
 <template>
   <div>
-    <div style="margin-top:20px">
-      <a-tabs defaultActiveKey="1">
-        <a-tab-pane tab="Tab 1" key="1">
-          <component-survey></component-survey>
-        </a-tab-pane>
-        <a-tab-pane tab="Tab 2" key="2">
-          <component-team></component-team>
-        </a-tab-pane>
-        <a-tab-pane tab="Tab 3" key="3">
-          <component-welfare></component-welfare>
-        </a-tab-pane>
+    <div style="width: 80%;padding-top:100px;padding-bottom:100px">
+      <a-tabs defaultActiveKey="0" type="card" :size="'large'">
+        <template v-for="tab in tabList">
+          <a-tab-pane :tab="tab.typename" :key="tab.key">
+            <component-survey v-if="tab.key==='0'"></component-survey>
+            <component-team v-if="tab.key==='1'"></component-team>
+            <component-welfare v-if="tab.key==='2'"></component-welfare>
+          </a-tab-pane>
+          <!-- <a-tab-pane tab="Tab 2" key="2">
+            <component-team></component-team>
+          </a-tab-pane>
+          <a-tab-pane tab="Tab 3" key="3">
+            <component-welfare></component-welfare>
+          </a-tab-pane> -->
+        </template>
       </a-tabs>
     </div>
   </div>
@@ -18,6 +22,8 @@
 
 
 <script>
+  import http from "@/config/http.js";
+
   import survey from "./survey";
   import team from "./team";
   import welfare from "./welfare";
@@ -33,24 +39,50 @@
       return {
         activeTabKey: "1",
         tabList: [{
+            key: "0",
+            typename: "公司概况"
+          },
+          {
             key: "1",
-            tab: "公司概况"
-          },
-          {
+            typename: "社会公益"
+          }, {
             key: "2",
-            tab: "社会公益"
-          },
-          {
-            key: "3",
-            tab: "团队建设"
+            typename: "团队建设"
           }
-        ]
+        ],
       };
+    },
+    mounted() {
+      //this.getSurveyList();
     },
     methods: {
       onTabChange(key, type) {
         console.log(key, type);
         this[type] = key;
+      },
+      getSurveyList() {
+        var params = {
+          source: "arctype",
+          conditions: JSON.stringify([{
+            fieldName: "topid",
+            operator: "EQ",
+            value: 2
+          }, {
+            fieldName: "id",
+            operator: "EQ",
+            value: 2
+          }])
+        };
+        http.get("/restController.php", params).then(res => {
+          var tabList = res.data;
+          console.log(tabList);
+          var newTabList = new Array();
+          for (let i = 0; i < tabList.length; i++) {
+            tabList[i].key = i.toString();
+            newTabList.push(tabList[i]);
+          }
+          this.tabList = newTabList;
+        })
       }
     }
   };

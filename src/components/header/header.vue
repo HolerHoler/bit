@@ -1,12 +1,15 @@
 <template>
     <div>
-        <div style="padding:10px 0;height:100px;">
-            <a-row type="flex">
-                <a-col :span="12" :xs="24" :md="12">
-
+        <div style="padding:20px 0;height:100px; ">
+            <a-row type="flex" justify="center">
+                <a-col :xs="12" :md="4">
+                    <span>logo1</span>
                 </a-col>
-                <a-col :span="12" :xs="24" :md="12">
-                    <a-menu mode="horizontal">
+                <a-col :xs="12" :md="4">
+                    <span>logo2</span>
+                </a-col>
+                <a-col :xs="24" :md="12">
+                    <a-menu mode="horizontal" style="width:100%">
                         <a-menu-item v-for="menu in menuList " :key="menu.key">
                             <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
                         </a-menu-item>

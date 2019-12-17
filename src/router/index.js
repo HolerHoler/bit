@@ -44,7 +44,7 @@ const routes = [{
     // ]
   }, {
     path: "/domain/detail/:aid",
-    name: "detail",
+    name: "domainDetail",
     component: () => import("@/components/arctype/domain/detail.vue")
   }, {
     path: "/management",
