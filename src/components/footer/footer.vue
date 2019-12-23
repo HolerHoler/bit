@@ -18,22 +18,29 @@
         </a-col> -->
         <a-col :xs="24" :md="12">
           <a-list size="small" style="width:80%">
-            <a-list-item>020-83869408</a-list-item>
-            <a-list-item>emailcctv@163.com</a-list-item>
-            <a-list-item>Guangdong guangzhou</a-list-item>
-            <div slot="header">联系我们</div>
+            <a-list-item>无界限国际科技有限公司</a-list-item>
+            <a-list-item>广州市名律会信息科技有限责任公司</a-list-item>
+            <a-list-item>广州市法源法律咨询服务有限公司</a-list-item>
+            <div slot="header">友情链接</div>
           </a-list>
         </a-col>
         <a-col :xs="24" :md="12">
           <a-list size="small" style="width:80%">
             <a-list-item>
-              <a-icon type="phone" :size="small" />020-83869408</a-list-item>
+              <span style="line-height:14px;">
+                <a-icon type="phone" size="small" />020-83869408</span></a-list-item>
             <a-list-item>
-              <a-icon type="mail" :size="small" />emailcctv@163.com</a-list-item>
+              <span style="line-height:14px;">
+                <a-icon type="mail" size="small" />emailcctv@163.com</span></a-list-item>
             <a-list-item>
-              <a-icon type="environment" :size="small" />Guangdong guangzhou</a-list-item>
+              <span style="line-height:14px;">
+                <a-icon type="environment" size="small" />Guangdong guangzhou</span></a-list-item>
             <div slot="header">联系我们</div>
           </a-list>
+        </a-col>
+        <a-col :xs="24" :md="24">
+          <p style="margin-top:20px;color:rgba(0, 0, 0, 0.65);text-align:center;line-height:14px;">
+            <a-icon type="copyright" size="small" />广州市无界限信息科技有限公司</p>
         </a-col>
       </a-row>
     </div>

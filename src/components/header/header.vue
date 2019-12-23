@@ -5,11 +5,11 @@
                 <a-col :xs="12" :md="4">
                     <span>logo1</span>
                 </a-col>
-                <a-col :xs="12" :md="4">
+                <a-col :xs="12" :md="8">
                     <span>logo2</span>
                 </a-col>
                 <a-col :xs="24" :md="12">
-                    <a-menu mode="horizontal" style="width:100%">
+                    <a-menu :mode="mode" style="width:100%">
                         <a-menu-item v-for="menu in menuList " :key="menu.key">
                             <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
                         </a-menu-item>
@@ -20,6 +20,9 @@
                         <a-menu-item>分支结构</a-menu-item>
                         <a-menu-item>公司动态</a-menu-item> -->
                     </a-menu>
+                    <a-button type="primary" style="margin-bottom: 16px" v-if="screenWidth<768">
+                        <a-icon :type="'menu-fold'" />
+                    </a-button>
                 </a-col>
             </a-row>
         </div>
@@ -62,10 +65,40 @@
         data() {
             return {
                 menuList,
+                screenWidth: document.body.clientWidth,
+                mode: "horizontal",
             };
+        },
+        watch: {
+            screenWidth(val) {
+                // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+                if (!this.timer) {
+                    // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
+                    this.screenWidth = val;
+                    this.timer = true;
+                    let that = this;
+                    setTimeout(function () {
+                        // 打印screenWidth变化的值
+                        console.log(that.screenWidth)
+                        that.timer = false
+                    }, 400)
+                }
+                if (this.screenWidth < 768) {
+                    this.mode = "vertical";
+                } else {
+                    this.mode = "horizontal";
+                }
+            }
         },
         created() {},
         mounted() {
+            const that = this;
+            window.onresize = () => {
+                return (() => {
+                    window.screenWidth = document.body.clientWidth
+                    that.screenWidth = window.screenWidth
+                })()
+            };
             this.getMenuList();
         },
         methods: {

@@ -41,7 +41,9 @@
       // "index-content": index
     },
     data() {
-      return {};
+      return {
+
+      };
     },
     created() {},
     methods: {}
