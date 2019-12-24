@@ -1,30 +1,43 @@
 <template>
     <div>
-        <div style="padding:20px 0;height:100px; ">
+        <div style="padding:20px 0; ">
             <a-row type="flex" justify="center">
-                <a-col :xs="12" :md="4">
-                    <span>logo1</span>
-                </a-col>
-                <a-col :xs="12" :md="8">
-                    <span>logo2</span>
+                <a-col :xs="24" :lg="12">
+                    <a-row>
+                        <a-col :xs="22" :lg="10">
+                            <span>logo1</span>
+                        </a-col>
+                        <a-col :xs="22" :lg="14">
+                            <span>logo2</span>
+                        </a-col>
+                        <a-col :xs="2" v-if="screenWidth<768">
+                            <span>
+                                <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
+                                    <a-icon :type="'menu-fold'" />
+                                </a-button>
+                            </span>
+                        </a-col>
+                    </a-row>
                 </a-col>
                 <a-col :xs="24" :md="12">
-                    <a-menu :mode="mode" style="width:100%">
-                        <a-menu-item v-for="menu in menuList " :key="menu.key">
-                            <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
-                        </a-menu-item>
-                        <!-- <a-menu-item>首页</a-menu-item>
+                    <div style="width: 100%">
+
+                        <a-menu :mode="mode" style="width:100%"
+                            v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
+                            <a-menu-item v-for="menu in menuList " :key="menu.key">
+                                <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
+                            </a-menu-item>
+                            <!-- <a-menu-item>首页</a-menu-item>
                              <a-menu-item>公司概况 </a-menu-item>
                         <a-menu-item>业务领域</a-menu-item>
                         <a-menu-item>管理层信息</a-menu-item>
                         <a-menu-item>分支结构</a-menu-item>
                         <a-menu-item>公司动态</a-menu-item> -->
-                    </a-menu>
-                    <a-button type="primary" style="margin-bottom: 16px" v-if="screenWidth<768">
-                        <a-icon :type="'menu-fold'" />
-                    </a-button>
+                        </a-menu>
+                    </div>
                 </a-col>
             </a-row>
+
         </div>
     </div>
 </template>
@@ -66,7 +79,9 @@
             return {
                 menuList,
                 screenWidth: document.body.clientWidth,
+                screenHeight: document.body.clientHeight,
                 mode: "horizontal",
+                collapsed: false,
             };
         },
         watch: {
@@ -85,6 +100,7 @@
                 }
                 if (this.screenWidth < 768) {
                     this.mode = "vertical";
+                    this.collapsed = false;
                 } else {
                     this.mode = "horizontal";
                 }
@@ -95,10 +111,17 @@
             const that = this;
             window.onresize = () => {
                 return (() => {
-                    window.screenWidth = document.body.clientWidth
-                    that.screenWidth = window.screenWidth
+                    window.screenWidth = document.body.clientWidth;
+                    that.screenWidth = window.screenWidth;
+                    console.log(that.screenWidth);
                 })()
             };
+            if (this.screenWidth < 768) {
+                this.mode = "vertical";
+                this.collapsed = false;
+            } else {
+                this.mode = "horizontal";
+            }
             this.getMenuList();
         },
         methods: {
@@ -114,7 +137,12 @@
                 http.get("/restController.php", params).then(res => {
                     console.log(res.data);
                 })
-            }
+            },
+            toggleCollapsed() {
+
+                this.collapsed = !this.collapsed;
+                console.log(this.collapsed);
+            },
         },
 
     };

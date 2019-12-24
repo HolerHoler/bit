@@ -63,7 +63,7 @@
   }
 
   #components-layout-demo-basic .ant-layout-header {
-    height: 100px;
+    height: 10%;
   }
 
   #components-layout-demo-basic .ant-layout-footer {
