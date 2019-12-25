@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="padding:20px 0; ">
+        <div style="padding:20px 0;">
             <a-row type="flex" justify="center">
                 <a-col :xs="24" :lg="12">
                     <a-row>
@@ -104,6 +104,20 @@
                 } else {
                     this.mode = "horizontal";
                 }
+            },
+            screenHeight(val) {
+                // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+                if (!this.timer) {
+                    // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
+                    this.screenHeight = val;
+                    this.timer = true;
+                    let that = this;
+                    setTimeout(function () {
+                        // 打印screenWidth变化的值
+                        console.log(that.screenHeight)
+                        that.timer = false
+                    }, 400)
+                }
             }
         },
         created() {},
@@ -114,6 +128,9 @@
                     window.screenWidth = document.body.clientWidth;
                     that.screenWidth = window.screenWidth;
                     console.log(that.screenWidth);
+
+                    window.screenHeight = document.body.clientHeight;
+                    that.screenHeight = window.screenHeight;
                 })()
             };
             if (this.screenWidth < 768) {

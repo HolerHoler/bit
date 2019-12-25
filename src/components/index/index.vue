@@ -5,28 +5,28 @@
       <a-row type="flex" justify="center">
         <a-card style="width: 100%" :bordered="false">
           <a-row :gutter="16">
-            <a-col :span="6">
+            <a-col :span="6" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
                 <p>广告策划、制作及发布</p>
               </a-card>
             </a-col>
-            <a-col :span="6">
+            <a-col :span="6" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
                 <p>影视制作</p>
               </a-card>
             </a-col>
-            <a-col :span="6">
+            <a-col :span="6" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
                 <p>编程及系统开发</p>
               </a-card>
             </a-col>
-            <a-col :span="6">
+            <a-col :span="6" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
@@ -51,21 +51,21 @@
       <a-row type="flex" justify="center">
         <a-card style="width: 100%;margin-top:40px" :bordered=false>
           <a-row :gutter="16">
-            <a-col :span="8">
+            <a-col :span="8" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
                 <p>广告策划、制作及发布</p>
               </a-card>
             </a-col>
-            <a-col :span="8">
+            <a-col :span="8" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
                 <p>影视制作</p>
               </a-card>
             </a-col>
-            <a-col :span="8">
+            <a-col :span="8" :xs="24">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
@@ -85,27 +85,22 @@
       <a-row type="flex" justify="center">
         <a-card style="width: 100%;margin-top:40px;" :bordered=false>
 
-          <a-list size="small" :dataSource="newsList" style="width:100%" :split=false class="dynamicList">
-
-            <a-list-item slot="renderItem" slot-scope="item, index" key="item">
-
+          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,lg:2}" :dataSource="newsList">
+            <a-list-item slot="renderItem" slot-scope="item, index">
               <a-list-item-meta>
-                <div slot="description">
+                <!-- <div slot="description">
                   <p class="description">
-                    111
+                    {{item.description}}
                   </p>
-                  <p>111</p>
-                </div>
+                  <p>{{item.shorttitle}}</p>
+                </div> -->
                 <a slot="title" @click="jumpArticle(item.id)">
                   <h3>{{item.title}}</h3>
                 </a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                   style="width:160px; height:120px" />
               </a-list-item-meta>
-
             </a-list-item>
-
-
           </a-list>
 
           <template class="ant-card-actions" slot="actions">
