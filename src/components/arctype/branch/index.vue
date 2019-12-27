@@ -1,17 +1,19 @@
 <template>
   <div>
     <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <a-row :gutter="16" type="flex" justify="center">
-        <template v-for="(branch,index) in branchList">
-          <a-col :key="index" :xs=24 :md=8>
-            <a-card :hoverable=true style="margin-bottom:20px;" v-on:click="jumpArticle(branch.aid)">
-              <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                slot="cover" />
-              <span style="text-align:center">{{branch.name}}</span>
-            </a-card>
-          </a-col>
-        </template>
-      </a-row>
+      <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="branchList">
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-card :hoverable=true @click="jumpBranchDetail(item.id)">
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+
+            <a-card-meta>
+              <template slot="title">
+                <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
+              </template>
+            </a-card-meta>
+          </a-card>
+        </a-list-item>
+      </a-list>
     </div>
   </div>
 </template>
@@ -24,27 +26,12 @@
     name: "index",
     data() {
       return {
-        branchList: [{
-            id: 1,
-            name: "无界国际科技有限公司",
-            aid: 17
-          },
-          {
-            id: 2,
-            name: "广州市名律会信息科技有限责任公司",
-            aid: 18
-          },
-          {
-            id: 3,
-            name: "广州市法源法律咨询服务有限公司",
-            aid: 19
-          }
-        ]
+        branchList: null,
       };
     },
-    // mounted() {
-    //   // this.getBranchList();
-    // },
+    mounted() {
+      this.getBranchList();
+    },
     methods: {
       getBranchList: function () {
         var params = {
@@ -55,13 +42,13 @@
             value: 5
           }])
         };
-        http.get("/restController.php", params).then(res => {
-          console.log(res.data);
+        http.get("/test.php?action=branchList", params).then(res => {
+          this.branchList = res.data;
         })
       },
-      jumpArticle(aid) {
+      jumpBranchDetail(aid) {
         this.$router.push({
-          name: 'hotArticle',
+          name: 'branchDetail',
           params: {
             aid: aid
           }

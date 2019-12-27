@@ -53,7 +53,7 @@
       };
     },
     mounted() {
-      //this.getSurveyList();
+      this.getSurveyList();
     },
     methods: {
       onTabChange(key, type) {
@@ -73,9 +73,9 @@
             value: 2
           }])
         };
-        http.get("/restController.php", params).then(res => {
+        http.get("/test.php?action=surveyList", params).then(res => {
           var tabList = res.data;
-          console.log(tabList);
+          //  console.log(tabList);
           var newTabList = new Array();
           for (let i = 0; i < tabList.length; i++) {
             tabList[i].key = i.toString();

@@ -26,13 +26,15 @@
                   <h3>{{item.title}}</h3>
                 </a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  style="width:160px; height:120px" />
+                  style="width:150px; height:120px" />
               </a-list-item-meta>
             </a-list-item>
           </a-list>
         </a-col>
         <a-col>
-          <a-pagination size="small" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" />
+          <!-- <a-pagination size="large" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" /> -->
+          <a-pagination size="large" @change="onPageChange" :current="pagination.page" :pageSize="pagination.pageSize"
+            :total="pagination.total" />
         </a-col>
       </a-row>
 
@@ -50,37 +52,45 @@
     data() {
       return {
         dynamicList: null,
+        pagination: {
+          page: 1,
+          pageSize: 8,
+          total: 50
+        }
       };
     },
     mounted() {
-      this.getDynamicList();
+      this.getDynamicList(this.pagination.page, this.pagination.pageSize);
     },
     methods: {
-      getDynamicList() {
+      getDynamicList(page, pageSize) {
         var params = {
           source: "archives",
           conditions: JSON.stringify([{
             fieldName: "typeid",
             operator: "EQ",
             value: 6
-          }])
+          }]),
+          page: page,
+          pageSize: pageSize,
         };
-        http.get("/restController.php", params).then(res => {
-          this.dynamicList = res.data;
-          console.log(res.data);
+        http.get("/test.php?action=dynamicList&typeid=6", params).then(res => {
+          var resData = res.data;
+          console.log(resData);
+          this.dynamicList = resData.data;
+
+          this.pagination = {
+            page: resData.page,
+            pageSize: resData.pageSize,
+            total: resData.total,
+          }
         });
       },
-      timestampToTime(timestamp) {
-        var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-        var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
-        console.log(date);
-        return Y + M + D + h + m + s;
+      onPageChange(page, pageSize) {
+        console.log(page, pageSize);
+        this.getDynamicList(page, pageSize);
       },
+
       jumpArticle(aid) {
         this.$router.push({
           name: 'hotArticle',
@@ -99,8 +109,7 @@
   }
 
   .dynamicList {
-    width: 80%;
-    margin-top: 20px;
+    width: 100%;
 
     .description {
       word-wrap: break-word;

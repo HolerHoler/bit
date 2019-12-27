@@ -1,19 +1,18 @@
 <template>
   <div>
     <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <a-row :gutter="16" type="flex" justify="center">
-        <template v-for="(domain,index) in domainList">
-          <a-col :key="index" :xs="24" :md="8">
-            <a-card :hoverable=true style="margin-bottom:20px;" @click="jumpDomainDetail(domain.aid)">
-              <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                slot="cover" />
-              <span style="text-align:center">
-                {{domain.name}}
-              </span>
-            </a-card>
-          </a-col>
-        </template>
-      </a-row>
+      <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="domainList">
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-card :hoverable=true @click="jumpDomainDetail(item.id)">
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <a-card-meta>
+              <template slot="title">
+                <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
+              </template>
+            </a-card-meta>
+          </a-card>
+        </a-list-item>
+      </a-list>
     </div>
 
   </div>
@@ -28,37 +27,7 @@
     name: "index",
     data() {
       return {
-        domainList: [{
-            id: 1,
-            name: "广告策划、制作及发布",
-            aid: 1
-          },
-          {
-            id: 2,
-            name: "影视制作",
-            aid: 2
-          },
-          {
-            id: 3,
-            name: "编程及系统开发",
-            aid: 3
-          },
-          {
-            id: 4,
-            name: "新媒体应用及营运",
-            aid: 4
-          },
-          {
-            id: 5,
-            name: "活动组织策划及执行",
-            aid: 5
-          },
-          {
-            id: 6,
-            name: "市场调研、能源及贸易咨询服务",
-            aid: 6
-          }
-        ]
+        domainList: null,
       };
     },
     mounted() {
@@ -78,10 +47,9 @@
             value: -2
           }])
         };
-        http.get("/restController.php", params).then(res => {
-
+        http.get("/test.php?action=domainList", params).then(res => {
+          this.domainList = res.data;
           console.log(res.data);
-
         });
 
       },

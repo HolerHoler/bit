@@ -5,9 +5,13 @@
         <a-col :sm="24" :md="18">
           <!-- 
           <h2 style="text-aglin:center">{{domainDetail[0].}}</h2> -->
-          <div v-html="domainDetail[0].body">{{domainDetail[0].body}}</div>
-
+          <div class="hotArticle">
+            <h1 class="title">{{domainDetail.title}}</h1>
+            <a-divider type="horizontal"> </a-divider>
+            <div v-html="domainDetail.body">{{domainDetail.body}}</div>
+          </div>
         </a-col>
+        <!-- 分类列表 -->
         <a-col :sm="24" :md="6">
           <a-list bordered :dataSource="domainList" itemLayout="vertical" size="small">
             <a-list-item slot="renderItem" slot-scope="item, index">
@@ -60,8 +64,9 @@
             value: aid
           }])
         };
-        http.get("/restController.php", params).then(res => {
+        http.get("/test.php?&action=domainDetail&aid=" + aid, params).then(res => {
           this.domainDetail = res.data;
+          console.log(this.domainDetail);
         });
       },
       getDomainList() {
@@ -101,5 +106,18 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .hotArticle {
+    border: 1px solid rgb(192, 192, 192);
+    padding: 10px;
+
+    .info {
+      text-align: center
+    }
+
+    .title {
+      text-align: center
+    }
+
+  }
 </style>

@@ -54,6 +54,7 @@
 <style>
   #components-layout-demo-basic {
     /* text-align: center; */
+    overflow-x: hidden !important;
   }
 
   #components-layout-demo-basic .ant-layout-header,
@@ -64,8 +65,9 @@
 
   #components-layout-demo-basic .ant-layout-header {
     /* min-height: 150px; */
-    height: 100px;
-    min-height: 10%;
+    /* height: 100px; */
+    height: auto;
+    min-height: 100px;
   }
 
   #components-layout-demo-basic .ant-layout-footer {
@@ -75,7 +77,8 @@
   #components-layout-demo-basic .ant-layout-sider {
     background: #3ba0e9;
     color: #fff;
-    line-height: 120px;
+    line-height: 1.5;
+
   }
 
   #components-layout-demo-basic .ant-layout-content {
@@ -83,15 +86,16 @@
     /* color: #fff;  */
     min-height: 600px;
     line-height: 1.5;
+    width: 100%;
   }
 
-  #components-layout-demo-basic>.ant-layout {
+  /* #components-layout-demo-basic>.ant-layout {
     margin-bottom: 48px;
   }
 
   #components-layout-demo-basic>.ant-layout:last-child {
     margin: 0;
-  }
+  } */
 </style>
 
 

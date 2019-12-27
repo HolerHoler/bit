@@ -4,43 +4,29 @@
       <!-- 领域 -->
       <a-row type="flex" justify="center">
         <a-card style="width: 100%" :bordered="false">
-          <a-row :gutter="16">
-            <a-col :span="6" :xs="24">
+
+          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:4}" :dataSource="domainList">
+            <a-list-item slot="renderItem" slot-scope="item, index">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
-                <p>广告策划、制作及发布</p>
+                <a-card-meta>
+                  <template slot="title">
+                    <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
+                  </template>
+                </a-card-meta>
               </a-card>
-            </a-col>
-            <a-col :span="6" :xs="24">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
-                <p>影视制作</p>
-              </a-card>
-            </a-col>
-            <a-col :span="6" :xs="24">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
-                <p>编程及系统开发</p>
-              </a-card>
-            </a-col>
-            <a-col :span="6" :xs="24">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
-                <p>新媒体应用及营运</p>
-              </a-card>
-            </a-col>
-          </a-row>
+            </a-list-item>
+          </a-list>
+
+
           <template class="ant-card-actions" slot="actions">
-            <span>查看更多</span>
+            <a-button type="primary" size="large" shape="round">查看更多</a-button>
           </template>
           <template slot="title">
             <div class="c-title">
-              <span>业务领域</span><br />
-              <span>Business areas</span>
+              <span class="title-cn">业务领域</span><br />
+              <span class="title-en">Business areas</span>
             </div>
           </template>
 
@@ -50,66 +36,59 @@
       <!-- 分支 -->
       <a-row type="flex" justify="center">
         <a-card style="width: 100%;margin-top:40px" :bordered=false>
-          <a-row :gutter="16">
-            <a-col :span="8" :xs="24">
+          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="branchList">
+
+            <a-list-item slot="renderItem" slot-scope="item, index">
               <a-card :hoverable=true>
                 <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                   slot="cover" />
-                <p>广告策划、制作及发布</p>
+                <a-card-meta>
+                  <template slot="title">
+                    <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
+                  </template>
+                </a-card-meta>
               </a-card>
-            </a-col>
-            <a-col :span="8" :xs="24">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
-                <p>影视制作</p>
-              </a-card>
-            </a-col>
-            <a-col :span="8" :xs="24">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
-                <p>编程及系统开发</p>
-              </a-card>
-            </a-col>
-          </a-row>
+            </a-list-item>
+
+          </a-list>
           <template slot="title">
             <div class="c-title">
-              <span>分支结构</span>
-              <span>Branch</span>
+              <span class="title-cn">分支结构</span><br />
+              <span class="title-en">Branch</span>
             </div>
           </template>
         </a-card>
       </a-row>
+
       <!-- 动态 -->
       <a-row type="flex" justify="center">
         <a-card style="width: 100%;margin-top:40px;" :bordered=false>
 
-          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,lg:2}" :dataSource="newsList">
-            <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,lg:2}" :dataSource="dynamicList" class="dynamicList">
+            <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
               <a-list-item-meta>
-                <!-- <div slot="description">
+                <div slot="description">
                   <p class="description">
                     {{item.description}}
                   </p>
                   <p>{{item.shorttitle}}</p>
-                </div> -->
+                </div>
                 <a slot="title" @click="jumpArticle(item.id)">
                   <h3>{{item.title}}</h3>
                 </a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  style="width:160px; height:120px" />
+                  style="width:150px; height:120px" />
               </a-list-item-meta>
             </a-list-item>
           </a-list>
 
           <template class="ant-card-actions" slot="actions">
-            <span>查看更多</span>
+            <a-button type="primary" size="large" shape="round">查看更多</a-button>
           </template>
           <template slot="title">
             <div class="c-title">
-              <span>公司动态</span><br />
-              <span>Company dynamic</span>
+              <span class="title-cn">公司动态</span><br />
+              <span class="title-en">Company dynamic</span>
             </div>
           </template>
         </a-card>
@@ -121,6 +100,8 @@
 
 <script>
   import infiniteScroll from "vue-infinite-scroll";
+
+  import http from "@/config/http.js";
 
   const newsList = [{
       title: "Ant Design Title 1"
@@ -164,6 +145,9 @@
         newsList: newsList,
         loading: false,
         busy: false,
+        branchList: null,
+        domainList: null,
+        dynamicList: null,
         listData: [{
             title: "无缝滚动第一行无缝滚动第一行",
             date: "2017-12-16"
@@ -204,6 +188,11 @@
       };
     },
     created() {},
+    mounted() {
+      this.getDomainList();
+      this.getBranchList();
+      this.getDynamicList();
+    },
     methods: {
       handleInfiniteOnLoad() {
         const data = this.newsList;
@@ -213,6 +202,54 @@
         //     this.loading = false;
         //     return;
         //   }
+
+      },
+      // 获取业务领域
+      getDomainList() {
+        var params = {
+          source: "archives",
+          conditions: JSON.stringify([{
+            fieldName: "typeid",
+            operator: "EQ",
+            value: 3
+          }, {
+            fieldName: "arcrank",
+            operator: "EQ",
+            value: -2
+          }])
+        };
+        http.get("/test.php?action=domainList", params).then(res => {
+          var domainList = res.data;
+          this.domainList = domainList.slice(0, 4);
+          console.log(this.domainList);
+        });
+      },
+      // 获取分支机构
+      getBranchList() {
+        var params = {
+          source: "archives",
+          conditions: JSON.stringify([{
+            fieldName: "typeid",
+            operator: "EQ",
+            value: 5
+          }])
+        };
+        http.get("/test.php?action=branchList", params).then(res => {
+          this.branchList = res.data;
+        })
+      },
+      // 获取公司动态
+      getDynamicList() {
+        http.get("/test.php?action=dynamicList&typeid=6").then(res => {
+          var resData = res.data;
+          console.log(this.domainList);
+          this.dynamicList = resData.data.slice(0, 4);
+          this.pagination = {
+            page: resData.page,
+            pageSize: resData.pageSize,
+            total: resData.total,
+          }
+        });
       }
     },
     components: {}
@@ -221,16 +258,29 @@
 
 <style lang="scss" scoped>
   .dynamicList {
-    width: 80%;
-    margin-top: 20px;
+    width: 100%;
+
 
     .description {
       word-wrap: break-word;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+    }
+  }
+
+  .c-title {
+    text-align: center;
+    color: black;
+
+    .title-cn {
+      font-size: 35px;
+    }
+
+    .title-en {
+      font-size: 20px;
     }
   }
 </style>

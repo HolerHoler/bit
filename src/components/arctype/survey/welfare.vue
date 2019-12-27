@@ -1,33 +1,41 @@
 <template>
   <div>
-
-    <a-form class="searchForm">
-      <a-input-search placeholder="input search text" size="large" style="width:80%">
-        <a-button slot="enterButton">搜索</a-button>
-      </a-input-search>
-    </a-form>
-    <a-list itemLayout="vertical" size="large" :dataSource="listData" style="width:80%" :split=false
-      class="dynamicList">
-      <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
-        <a-list-item-meta>
-          <div slot="description">
-            <p class="description">
-              我我我我我我我我我我我我我我我我哦我我我我我我我我我我我我我我我我我我我我我我我我我我我我哦我我我我我我我我我我我我我我我我我我我我我我我我我我我我哦我我我我我我我我我我我我我我我我我我我我我我我我我我我我哦我我我我我我我我我我我我
-            </p>
-            <p>2019-10-12</p>
-          </div>
-          <a slot="title" href="https://vue.ant.design/">
-            <h3>我我我我我我我我我我我我我我我我哦我我我我我我我我我我我我</h3>
-          </a>
-          <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            style="width:160px; height:120px" />
-        </a-list-item-meta>
-      </a-list-item>
-    </a-list>
-
-    <a-pagination size="small" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" />
-
-
+    <a-row type="flex" justify="center">
+      <a-col :span="12">
+        <a-form class="searchForm">
+          <a-input-search placeholder="input search text" size="large" style="width:100%">
+            <a-button slot="enterButton">搜索</a-button>
+          </a-input-search>
+        </a-form>
+      </a-col>
+    </a-row>
+    <a-row type="flex" justify="center">
+      <a-col :span="24">
+        <a-list itemLayout="vertical" size="large" :dataSource="dynamicList" style="width:100%" :split=false
+          class="dynamicList">
+          <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
+            <a-list-item-meta>
+              <div slot="description">
+                <p class="description">
+                  {{item.description}}
+                </p>
+                <p>{{item.shorttitle}}</p>
+              </div>
+              <a slot="title" @click="jumpArticle(item.id)">
+                <h3>{{item.title}}</h3>
+              </a>
+              <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                style="width:160px; height:120px" />
+            </a-list-item-meta>
+          </a-list-item>
+        </a-list>
+      </a-col>
+      <a-col>
+        <!-- <a-pagination size="large" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" /> -->
+        <a-pagination size="large" @change="onPageChange" :current="pagination.page" :pageSize="pagination.pageSize"
+          :total="pagination.total" />
+      </a-col>
+    </a-row>
 
   </div>
 
@@ -35,23 +43,60 @@
 
 
 <script>
-  const listData = [];
-  for (let i = 0; i < 8; i++) {
-    listData.push({
-      href: "https://vue.ant.design/",
-      title: `ant design vue part ${i}`,
-      avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      description: "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-      content: "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-    });
-  }
+  import http from "@/config/http.js";
 
   export default {
-    name: "welfare",
+    name: "team",
     data() {
       return {
-        listData
+        dynamicList: null,
+        pagination: {
+          page: 1,
+          pageSize: 8,
+          total: 50
+        }
       };
+    },
+    mounted() {
+      this.getDynamicList(this.pagination.page, this.pagination.pageSize);
+    },
+    methods: {
+      getDynamicList(page, pageSize) {
+        var params = {
+          source: "welfare",
+          conditions: JSON.stringify([{
+            fieldName: "typeid",
+            operator: "EQ",
+            value: 6
+          }]),
+          page: page,
+          pageSize: pageSize,
+        };
+        http.get("/test.php?action=dynamicList&typeid=10", params).then(res => {
+          var resData = res.data;
+          console.log(resData);
+          this.dynamicList = resData.data;
+
+          this.pagination = {
+            page: resData.page,
+            pageSize: resData.pageSize,
+            total: resData.total,
+          }
+        });
+      },
+      onPageChange(page, pageSize) {
+        console.log(page, pageSize);
+        this.getDynamicList(page, pageSize);
+      },
+
+      jumpArticle(aid) {
+        this.$router.push({
+          name: 'hotArticle',
+          params: {
+            aid: aid
+          }
+        })
+      }
     }
   };
 </script>

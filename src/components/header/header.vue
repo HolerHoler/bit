@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div style="padding:20px 0;">
-            <a-row type="flex" justify="center">
-                <a-col :xs="24" :lg="12">
+        <div style="">
+            <a-row>
+                <a-col :xs="24" :md="10">
                     <a-row>
-                        <a-col :xs="22" :lg="10">
+                        <a-col :xs="24" :lg="12">
                             <span>logo1</span>
                         </a-col>
-                        <a-col :xs="22" :lg="14">
+                        <a-col :xs="22" :lg="12">
                             <span>logo2</span>
                         </a-col>
                         <a-col :xs="2" v-if="screenWidth<768">
@@ -19,11 +19,10 @@
                         </a-col>
                     </a-row>
                 </a-col>
-                <a-col :xs="24" :md="12">
-                    <div style="width: 100%">
+                <a-col :xs="24" :md="14">
 
-                        <a-menu :mode="mode" style="width:100%"
-                            v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
+                    <div id="nav">
+                        <a-menu :mode="mode" v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
                             <a-menu-item v-for="menu in menuList " :key="menu.key">
                                 <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
                             </a-menu-item>
@@ -166,4 +165,27 @@
 </script>
 
 <style>
+    #nav {
+        border: 0;
+        float: right;
+
+        width: 100%;
+
+    }
+
+    #nav .ant-menu-horizontal>.ant-menu-item {
+        height: 100px;
+        line-height: 100px;
+        min-width: 10%;
+        border-top: 2px solid transparent;
+    }
+
+    #nav>.ant-menu-item {
+        text-align: center;
+    }
+
+    #nav .ant-menu-item a {
+        font-weight: bold;
+        font-size: 18px;
+    }
 </style>

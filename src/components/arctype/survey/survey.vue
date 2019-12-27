@@ -1,8 +1,7 @@
 <template>
 	<div>
 
-
-		<div v-html="survey[0].content">{{survey[0].content}}</div>
+		<div v-html="survey.content" v-if="survey!=null">{{survey.content}}</div>
 
 
 	</div>
@@ -32,7 +31,7 @@
 						value: 2
 					}])
 				};
-				http.get("/restController.php", params).then(res => {
+				http.get("/test.php?action=survey", params).then(res => {
 					this.survey = res.data;
 					console.log(res.data);
 				})
