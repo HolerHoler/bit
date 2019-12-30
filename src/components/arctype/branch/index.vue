@@ -4,7 +4,7 @@
       <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="branchList">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-card :hoverable=true @click="jumpBranchDetail(item.id)">
-            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" />
+            <img alt="example" :src="baseUrl+item.litpic" slot="cover" />
 
             <a-card-meta>
               <template slot="title">
@@ -21,11 +21,13 @@
 
 <script>
   import http from "@/config/http.js";
+  import baseInfo from "@/config/baseInfo.js";
 
   export default {
     name: "index",
     data() {
       return {
+        baseUrl: baseInfo.baseUrl,
         branchList: null,
       };
     },

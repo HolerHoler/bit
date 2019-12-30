@@ -16,17 +16,17 @@
 
           </a-list>
         </a-col> -->
-        <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="8">
           <a-list size="small" class="footer-list">
             <a-list-item><span>无界限国际科技有限公司</span></a-list-item>
             <a-list-item><span>广州市名律会信息科技有限责任公司</span></a-list-item>
             <a-list-item><span>广州市法源法律咨询服务有限公司</span></a-list-item>
             <div slot="header">
-              <span style="font-size:18px">友情链接</span>
+              <span style="font-size:18px;font-weight: bold;">友情链接</span>
             </div>
           </a-list>
         </a-col>
-        <a-col :xs="24" :md="12">
+        <a-col :xs="24" :md="8">
           <a-list size="small" class="footer-list">
             <a-list-item>
               <span>
@@ -38,12 +38,18 @@
               <span>
                 <a-icon type="environment" size="small" />Guangdong guangzhou</span></a-list-item>
             <div slot="header">
-              <span style="font-size:18px">联系我们</span></div>
+              <span style="font-size:18px;font-weight: bold;">联系我们</span></div>
           </a-list>
         </a-col>
-        <a-col :xs="24" :md="24">
-          <p style="margin-top:20px;color:rgba(0, 0, 0, 0.65);text-align:center;line-height:14px;">
-            <a-icon type="copyright" size="small" />广州市无界限信息科技有限公司</p>
+        <a-col :xs="24" :md="8">
+          <a-list size="small" class="footer-list">
+            <a-list-item>
+              <span>
+                <a-icon type="copyright" size="small" />广州市无界限信息科技有限公司</span></a-list-item>
+
+            <div slot="header">
+              <span style="font-size:18px;font-weight: bold;">其他信息</span></div>
+          </a-list>
         </a-col>
       </a-row>
     </div>
@@ -64,8 +70,9 @@
 
 <style lang="scss">
   .footer-list {
-
+    color: #FFF;
     width: 80%;
+    font-size: 14px;
 
     span {
       line-height: 14px;

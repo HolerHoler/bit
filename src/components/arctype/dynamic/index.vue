@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <a-row type="flex" justify="center">
+      <!-- <a-row type="flex" justify="center">
         <a-col :span="12">
           <a-form class="searchForm">
             <a-input-search placeholder="input search text" size="large" style="width:100%">
@@ -9,7 +9,7 @@
             </a-input-search>
           </a-form>
         </a-col>
-      </a-row>
+      </a-row> -->
       <a-row type="flex" justify="center">
         <a-col :span="24">
           <a-list itemLayout="vertical" size="large" :dataSource="dynamicList" style="width:100%" :split=false
@@ -22,11 +22,10 @@
                   </p>
                   <p>{{item.shorttitle}}</p>
                 </div>
-                <a slot="title" @click="jumpArticle(item.id)">
-                  <h3>{{item.title}}</h3>
+                <a slot="title">
+                  <router-link :to="{ name: 'hotArticle', params:{aid:item.id} }">{{item.title}}</router-link>
                 </a>
-                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  style="width:150px; height:120px" />
+                <a-avatar slot="avatar" :src="baseUrl+item.litpic" style="width:150px; height:120px" shape="square" />
               </a-list-item-meta>
             </a-list-item>
           </a-list>
@@ -46,11 +45,13 @@
 
 <script>
   import http from "@/config/http.js";
+  import baseInfo from "@/config/baseInfo.js";
 
   export default {
     name: "index",
     data() {
       return {
+        baseUrl: baseInfo.baseUrl,
         dynamicList: null,
         pagination: {
           page: 1,
@@ -118,6 +119,20 @@
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+    }
+
+    .ant-list-item .ant-list-item-meta-title {
+      font-weight: bold;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .ant-list-item a {
+      color: #000;
+    }
+
+    .ant-list-item a:hover {
+      color: #fd7e14;
     }
   }
 </style>

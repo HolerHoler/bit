@@ -5,11 +5,10 @@
       <a-row type="flex" justify="center">
         <a-card style="width: 100%" :bordered="false">
 
-          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:4}" :dataSource="domainList">
+          <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:4}" :dataSource="domainList" v-if="domainList!=null">
             <a-list-item slot="renderItem" slot-scope="item, index">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
+              <a-card :hoverable=true @click="jumpDomainDetail(item.id)">
+                <img alt="example" :src="baseUrl+item.litpic" slot="cover" />
                 <a-card-meta>
                   <template slot="title">
                     <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
@@ -21,7 +20,9 @@
 
 
           <template class="ant-card-actions" slot="actions">
-            <a-button type="primary" size="large" shape="round">查看更多</a-button>
+            <a-button type="primary" size="large" shape="round">
+              <router-link :to="{path:'/domain'}">查看更多</router-link>
+            </a-button>
           </template>
           <template slot="title">
             <div class="c-title">
@@ -39,9 +40,8 @@
           <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="branchList">
 
             <a-list-item slot="renderItem" slot-scope="item, index">
-              <a-card :hoverable=true>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover" />
+              <a-card :hoverable=true @click="jumpBranchDetail(item.id)">
+                <img alt="example" :src="baseUrl+item.litpic" slot="cover" />
                 <a-card-meta>
                   <template slot="title">
                     <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
@@ -73,17 +73,18 @@
                   </p>
                   <p>{{item.shorttitle}}</p>
                 </div>
-                <a slot="title" @click="jumpArticle(item.id)">
-                  <h3>{{item.title}}</h3>
+                <a slot="title">
+                  <router-link :to="{ name: 'hotArticle', params:{aid:item.id} }">{{item.title}}</router-link>
                 </a>
-                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  style="width:150px; height:120px" />
+                <a-avatar slot="avatar" :src="baseUrl+item.litpic" style="width:150px; height:120px" shape="square" />
               </a-list-item-meta>
             </a-list-item>
           </a-list>
 
           <template class="ant-card-actions" slot="actions">
-            <a-button type="primary" size="large" shape="round">查看更多</a-button>
+            <a-button type="primary" size="large" shape="round">
+              <router-link :to="{path:'/dynamic'}">查看更多</router-link>
+            </a-button>
           </template>
           <template slot="title">
             <div class="c-title">
@@ -102,6 +103,7 @@
   import infiniteScroll from "vue-infinite-scroll";
 
   import http from "@/config/http.js";
+  import baseInfo from "@/config/baseInfo.js";
 
   const newsList = [{
       title: "Ant Design Title 1"
@@ -142,6 +144,7 @@
     },
     data() {
       return {
+        baseUrl: baseInfo.baseUrl,
         newsList: newsList,
         loading: false,
         busy: false,
@@ -250,6 +253,24 @@
             total: resData.total,
           }
         });
+      },
+      // 分支跳转
+      jumpBranchDetail(aid) {
+        this.$router.push({
+          name: 'branchDetail',
+          params: {
+            aid: aid
+          }
+        })
+      },
+      // 领域跳转
+      jumpDomainDetail(aid) {
+        this.$router.push({
+          name: 'domainDetail',
+          params: {
+            aid: aid
+          }
+        })
       }
     },
     components: {}
@@ -260,14 +281,27 @@
   .dynamicList {
     width: 100%;
 
-
     .description {
       word-wrap: break-word;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+    }
+
+    .ant-list-item .ant-list-item-meta-title {
+      font-weight: bold;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .ant-list-item a {
+      color: #000;
+    }
+
+    .ant-list-item a:hover {
+      color: #fd7e14;
     }
   }
 
@@ -276,6 +310,7 @@
     color: black;
 
     .title-cn {
+      font-weight: bold;
       font-size: 35px;
     }
 

@@ -12,7 +12,7 @@
      outputDir: "dist",
      
      //用于放置生成的静态资源 (js、css、img、fonts) 的；（项目打包之后，静态资源会放在这个文件夹下）
-     assetsDir: "",
+     assetsDir: "vueResource",
      
      //指定生成的 index.html 的输出路径  (打包之后，改变系统默认的index.html的文件名)
      // indexPath: "index.html",

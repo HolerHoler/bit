@@ -4,7 +4,11 @@
       <a-back-top style="right:100px;" />
       <!-- 头部 -->
       <a-layout-header>
-        <index-header></index-header>
+        <a-row type="flex" justify="center">
+          <a-col :span="24" :offset="6">
+            <index-header></index-header>
+          </a-col>
+        </a-row>
       </a-layout-header>
       <!-- 正文 -->
       <a-layout-content>
@@ -57,20 +61,22 @@
     overflow-x: hidden !important;
   }
 
-  #components-layout-demo-basic .ant-layout-header,
+  /* #components-layout-demo-basic .ant-layout-header,
   #components-layout-demo-basic .ant-layout-footer {
     background: #7dbcea;
     color: #fff;
-  }
+  } */
 
   #components-layout-demo-basic .ant-layout-header {
     /* min-height: 150px; */
     /* height: 100px; */
+    background: #007bff;
     height: auto;
     min-height: 100px;
   }
 
   #components-layout-demo-basic .ant-layout-footer {
+    background: #808080;
     line-height: 1.5;
   }
 

@@ -15,9 +15,9 @@
         <a-col :sm="24" :md="6">
           <a-list bordered :dataSource="domainList" itemLayout="vertical" size="small">
             <a-list-item slot="renderItem" slot-scope="item, index">
-              <a @click="jumpDomainDetail(item.aid)">{{item.title}}</a>
+              <router-link :to="{ name: 'domainDetail', params:{aid:item.id} }">{{item.title}}</router-link>
             </a-list-item>
-            <div slot="header"><span>业务领域</span></div>
+            <div slot="header"><span style="font-size:18px;font-weight:bold">业务领域</span></div>
           </a-list>
         </a-col>
       </a-row>
@@ -42,8 +42,6 @@
     },
     watch: {
       '$route'(to, from) {
-        //
-        console.log();
         var aid = to.params['aid'];
         this.getDomainDetail(aid);
       }
@@ -82,7 +80,7 @@
             value: -2
           }])
         };
-        http.get("/restController.php", params).then(res => {
+        http.get("/test.php?action=domainList", params).then(res => {
           var domainList = res.data;
           var newList = new Array();
           for (let i = 0; i < domainList.length; i++) {
@@ -119,5 +117,18 @@
       text-align: center
     }
 
+  }
+
+
+  .ant-list-item {
+
+    font-size: 12px;
+
+
+    a {}
+
+    a:hover {
+      color: #fd7e14;
+    }
   }
 </style>

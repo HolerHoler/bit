@@ -4,8 +4,7 @@
             <a-list :grid="{ gutter: 16, xs: 1, sm: 2,md:4}" :dataSource="managementList">
                 <a-list-item slot="renderItem" slot-scope="item, index">
                     <a-card :hoverable=true>
-                        <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                            slot="cover" />
+                        <img alt="example" :src="baseUrl+item.litpic" slot="cover" />
                         <a-card-meta>
                             <template slot="title">
                                 <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
@@ -26,12 +25,13 @@
 
 <script>
     import http from "@/config/http.js";
-
+    import baseInfo from "@/config/baseInfo.js";
 
     export default {
         name: "index",
         data() {
             return {
+                baseUrl: baseInfo.baseUrl,
                 managementList: null,
             };
         },

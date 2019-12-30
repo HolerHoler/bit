@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div style="">
-            <a-row>
-                <a-col :xs="24" :md="10">
+        <div>
+            <a-row :gutter="16">
+                <a-col :xs="24" :md="8">
                     <a-row>
-                        <a-col :xs="24" :lg="12">
-                            <span>logo1</span>
+                        <a-col :xs="24" :lg="10">
+                            <span style="line-height:100px"> <img src="@/assets/images/bit/logo.jpg" /></span>
                         </a-col>
-                        <a-col :xs="22" :lg="12">
-                            <span>logo2</span>
+                        <a-col :xs="22" :lg="14">
+                            <span style="line-height:100px"> <img src="@/assets/images/bit/wuxian.png" /></span>
                         </a-col>
                         <a-col :xs="2" v-if="screenWidth<768">
                             <span>
@@ -19,12 +19,12 @@
                         </a-col>
                     </a-row>
                 </a-col>
-                <a-col :xs="24" :md="14">
+                <a-col :xs="24" :md="16">
 
                     <div id="nav">
                         <a-menu :mode="mode" v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
                             <a-menu-item v-for="menu in menuList " :key="menu.key">
-                                <router-link :to="{path:menu.path}">{{menu.name}}</router-link>
+                                <router-link :to="{path:menu.typedir}">{{menu.typename}}</router-link>
                             </a-menu-item>
                             <!-- <a-menu-item>首页</a-menu-item>
                              <a-menu-item>公司概况 </a-menu-item>
@@ -47,28 +47,28 @@
     const
         menuList = [{
             key: "1",
-            name: "首页",
-            path: "/index"
+            typename: "首页",
+            typedir: "/index"
         }, {
             key: "2",
-            name: "公司概况",
-            path: "/survey"
+            typename: "公司概况",
+            typedir: "/survey"
         }, {
             key: "3",
-            name: "业务领域",
-            path: "/domain"
+            typename: "业务领域",
+            typedir: "/domain"
         }, {
             key: "4",
-            name: "管理层信息",
-            path: "/management"
+            typename: "管理层信息",
+            typedir: "/management"
         }, {
             key: "5",
-            name: "分支结构",
-            path: "/branch"
+            typename: "分支结构",
+            typedir: "/branch"
         }, {
             key: "6",
-            name: "公司动态",
-            path: "/dynamic"
+            typename: "公司动态",
+            typedir: "/dynamic"
         }];
 
     export default {
@@ -76,7 +76,7 @@
         components: {},
         data() {
             return {
-                menuList,
+                menuList: menuList,
                 screenWidth: document.body.clientWidth,
                 screenHeight: document.body.clientHeight,
                 mode: "horizontal",
@@ -138,7 +138,7 @@
             } else {
                 this.mode = "horizontal";
             }
-            this.getMenuList();
+            //  this.getMenuList();
         },
         methods: {
             getMenuList() {
@@ -150,8 +150,27 @@
                         value: 0
                     }])
                 };
-                http.get("/restController.php", params).then(res => {
-                    console.log(res.data);
+                http.get("/test.php?action=type", params).then(res => {
+
+                    var typeList = res.data;
+
+                    var newList = new Array();
+                    newList.push({
+                        key: "0",
+                        typename: "首页",
+                        typedir: "/index"
+                    });
+                    var j = 1;
+                    for (let i = 0; i < typeList.length; i++) {
+
+                        newList[i].key = j.toString();
+                        newList.push(typeList[i]);
+                        j++;
+                    }
+                    console.log(newList);
+                    this.menuList = newList;
+
+
                 })
             },
             toggleCollapsed() {
@@ -168,16 +187,19 @@
     #nav {
         border: 0;
         float: right;
-
         width: 100%;
 
+    }
+
+    #nav .ant-menu-horizontal {
+        background: #007bff;
     }
 
     #nav .ant-menu-horizontal>.ant-menu-item {
         height: 100px;
         line-height: 100px;
         min-width: 10%;
-        border-top: 2px solid transparent;
+        /* border-top: 2px solid transparent; */
     }
 
     #nav>.ant-menu-item {
@@ -185,7 +207,13 @@
     }
 
     #nav .ant-menu-item a {
-        font-weight: bold;
+        
         font-size: 18px;
+        color: #FFF;
+    }
+
+    #nav .ant-menu-item a:hover {
+
+        color: #FB8264;
     }
 </style>
