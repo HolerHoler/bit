@@ -195,6 +195,10 @@
         background: #007bff;
     }
 
+    #nav .ant-menu-vertical {
+        background: #28a745;
+    }
+
     #nav .ant-menu-horizontal>.ant-menu-item {
         height: 100px;
         line-height: 100px;
@@ -207,7 +211,7 @@
     }
 
     #nav .ant-menu-item a {
-        
+
         font-size: 18px;
         color: #FFF;
     }

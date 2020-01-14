@@ -8,7 +8,8 @@
 
             <a-card-meta>
               <template slot="title">
-                <div style="text-align:center"> <span style="font-size:14px">{{item.title}}</span></div>
+                <div style="text-align:center"> <span style="font-size:16px;font-weight:bold">{{item.title}}</span>
+                </div>
               </template>
             </a-card-meta>
           </a-card>
