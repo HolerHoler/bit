@@ -3,7 +3,7 @@ let baseUrl = '';
 if (isDev) {
     baseUrl = "http://localhost:81";
 } else {
-    if (window.location.port === 81) {
+    if (window.location.port == 81) {
         baseUrl = "http://localhost:81";
     } else {
         baseUrl = "http://www.bitzg.cn";

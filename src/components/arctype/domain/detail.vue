@@ -17,7 +17,8 @@
             <a-list-item slot="renderItem" slot-scope="item, index">
               <router-link :to="{ name: 'domainDetail', params:{aid:item.id} }">{{item.title}}</router-link>
             </a-list-item>
-            <div slot="header"><span style="font-size:18px;font-weight:bold">业务领域</span></div>
+            <span slot="header">业务领域
+            </span>
           </a-list>
         </a-col>
       </a-row>
@@ -119,16 +120,32 @@
 
   }
 
-
-  .ant-list-item {
-
-    font-size: 12px;
+  .ant-list {
+    width: 100%;
 
 
-    a {}
+    .ant-list-header {
+      width: 100%;
+      height: 500px;
 
-    a:hover {
-      color: #fd7e14;
+      span {
+        font-size: 16px;
+        font-weight: bold
+      }
+    }
+
+    .ant-list-item {
+      justify-content: center;
+      height: 40px;
+
+      a {
+        line-height: 20px;
+        font-size: 14px;
+      }
+
+      a:hover {
+        color: #fd7e14;
+      }
     }
   }
 </style>

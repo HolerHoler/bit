@@ -76,7 +76,7 @@
   }
 
   #components-layout-demo-basic .ant-layout-footer {
-    background: #808080;
+    background: #474f5c;
     line-height: 1.5;
   }
 

@@ -9,7 +9,7 @@ let axiosBaseUrl = '';
 if (isDev) {
     axiosBaseUrl = "http://localhost:81/php/bit";
 } else {
-    if (window.location.port === 81) {
+    if (window.location.port == 81) {
         axiosBaseUrl = "http://localhost:81/php/bit";
     } else {
         axiosBaseUrl = "http://www.bitzg.cn/php/bit";
