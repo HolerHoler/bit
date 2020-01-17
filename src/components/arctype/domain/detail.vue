@@ -36,8 +36,8 @@
     },
     data() {
       return {
-        domainDetail: null,
-        domainList: null
+        domainDetail: [],
+        domainList: []
       };
     },
     watch: {
@@ -48,39 +48,94 @@
     },
     mounted() {
       let aid = this.$route.params.aid;
-      console.log(aid);
+      // console.log(aid);
       this.getDomainDetail(aid);
       this.getDomainList();
     },
     methods: {
       getDomainDetail(aid) {
+        // var params = {
+        //   source: "article",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "aid",
+        //     operator: "EQ",
+        //     value: aid
+        //   }])
+        // };
         var params = {
-          source: "article",
-          conditions: JSON.stringify([{
-            fieldName: "aid",
-            operator: "EQ",
-            value: aid
-          }])
-        };
-        http.get("/test.php?&action=domainDetail&aid=" + aid, params).then(res => {
+          action:'search',
+          source:'addonarticle',
+          withCode:'lj',
+          withData:JSON.stringify({
+            source:'archives',
+            srcKey:'aid',
+            key:'id',
+            whereAlia:'addonarticle'
+          }),
+          params:JSON.stringify(
+              [{
+              condition:'and',
+              data:[
+                  {
+                  condition:'and',
+                  data:[
+                      {
+                      field:'aid',
+                      operator:'EQ',
+                      value:aid
+                      }
+                  ]
+                  }
+              ]
+              }]
+          ),
+          resultStatus:1
+        }
+        http.get("/doAction.php", params).then(res => {
           this.domainDetail = res.data;
-          console.log(this.domainDetail);
+          // console.log(this.domainDetail);
         });
       },
       getDomainList() {
+        // var params = {
+        //   source: "archives",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "typeid",
+        //     operator: "EQ",
+        //     value: 3
+        //   }, {
+        //     fieldName: "arcrank",
+        //     operator: "EQ",
+        //     value: -2
+        //   }])
+        // };
         var params = {
-          source: "archives",
-          conditions: JSON.stringify([{
-            fieldName: "typeid",
-            operator: "EQ",
-            value: 3
-          }, {
-            fieldName: "arcrank",
-            operator: "EQ",
-            value: -2
-          }])
-        };
-        http.get("/test.php?action=domainList", params).then(res => {
+          action:'search',
+          source:'archives',
+          params:JSON.stringify(
+              [{
+              condition:'and',
+              data:[
+                  {
+                  condition:'and',
+                  data:[
+                      {
+                      field:'typeid',
+                      operator:'EQ',
+                      value:3
+                      },
+                       {
+                      field:'arcrank',
+                      operator:'EQ',
+                      value:-2
+                      }
+                  ]
+                  },
+              ]
+              }]
+          )
+        }
+        http.get("/doAction.php", params).then(res => {
           var domainList = res.data;
           var newList = new Array();
           for (let i = 0; i < domainList.length; i++) {
@@ -91,7 +146,7 @@
         });
       },
       jumpDomainDetail(aid) {
-        console.log(aid);
+        // console.log(aid);
         this.$router.push({
           name: 'domainDetail',
           params: {

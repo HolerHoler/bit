@@ -23,17 +23,39 @@
 		},
 		methods: {
 			getSurvey() {
+				// var params = {
+				// 	source: "arctype",
+				// 	conditions: JSON.stringify([{
+				// 		fieldName: "id",
+				// 		operator: "EQ",
+				// 		value: 2
+				// 	}])
+				// };
 				var params = {
-					source: "arctype",
-					conditions: JSON.stringify([{
-						fieldName: "id",
-						operator: "EQ",
-						value: 2
-					}])
-				};
-				http.get("/test.php?action=survey", params).then(res => {
+					action:'search',
+					source:'arctype',
+					params:JSON.stringify(
+						[{
+						condition:'and',
+						data:[
+							{
+							condition:'and',
+							data:[
+								{
+								field:'id',
+								operator:'EQ',
+								value:'2'
+								},
+							]
+							}
+						]
+						}]
+					),
+					resultStatus:1
+				}
+				http.get("/doAction.php", params).then(res => {
 					this.survey = res.data;
-					console.log(res.data);
+					// console.log(res.data);
 				})
 			}
 		}

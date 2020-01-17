@@ -57,23 +57,49 @@
     },
     methods: {
       onTabChange(key, type) {
-        console.log(key, type);
+        // console.log(key, type);
         this[type] = key;
       },
       getSurveyList() {
+        // var params = {
+        //   source: "arctype",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "topid",
+        //     operator: "EQ",
+        //     value: 2
+        //   }, {
+        //     fieldName: "id",
+        //     operator: "EQ",
+        //     value: 2
+        //   }])
+        // };
         var params = {
-          source: "arctype",
-          conditions: JSON.stringify([{
-            fieldName: "topid",
-            operator: "EQ",
-            value: 2
-          }, {
-            fieldName: "id",
-            operator: "EQ",
-            value: 2
-          }])
-        };
-        http.get("/test.php?action=surveyList", params).then(res => {
+          action:'search',
+          source:'arctype',
+          params:JSON.stringify(
+              [{
+              condition:'and',
+              data:[
+                  {
+                  condition:'or',
+                  data:[
+                      {
+                      field:'topid',
+                      operator:'EQ',
+                      value:'2'
+                      },
+                      {
+                      field:'id',
+                      operator:'EQ',
+                      value:'2'
+                      }
+                  ]
+                  }
+              ]
+              }]
+          )
+        }
+        http.get("/doAction.php", params).then(res => {
           var tabList = res.data;
           //  console.log(tabList);
           var newTabList = new Array();

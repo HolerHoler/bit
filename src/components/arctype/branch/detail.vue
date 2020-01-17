@@ -21,27 +21,56 @@
         components: {},
         data() {
             return {
-                branchDetail: null,
+                branchDetail: [],
             };
         },
         mounted() {
             let aid = this.$route.params.aid;
-            console.log(aid);
+            // console.log(aid);
             this.getBranchDetail(aid);
         },
         methods: {
             getBranchDetail(aid) {
+                // var params = {
+                //     source: "article",
+                //     conditions: JSON.stringify([{
+                //         fieldName: "aid",
+                //         operator: "EQ",
+                //         value: aid
+                //     }])
+                // };
                 var params = {
-                    source: "article",
-                    conditions: JSON.stringify([{
-                        fieldName: "aid",
-                        operator: "EQ",
-                        value: aid
-                    }])
-                };
-                http.get("/test.php?&action=branchDetail&aid=" + aid, params).then(res => {
+                action:'search',
+                source:'addonarticle',
+                withCode:'lj',
+                withData:JSON.stringify({
+                    source:'archives',
+                    srcKey:'aid',
+                    key:'id',
+                    whereAlia:'addonarticle'
+                }),
+                params:JSON.stringify(
+                    [{
+                    condition:'and',
+                    data:[
+                        {
+                        condition:'and',
+                        data:[
+                            {
+                            field:'aid',
+                            operator:'EQ',
+                            value:aid
+                            }
+                        ]
+                        }
+                    ]
+                    }]
+                ),
+                resultStatus:1
+                }
+                http.get("/doAction.php", params).then(res => {
                     this.branchDetail = res.data;
-                    console.log(res);
+                    // console.log(res);
                 });
 
             },

@@ -29,7 +29,7 @@
     data() {
       return {
         baseUrl: baseInfo.baseUrl,
-        branchList: null,
+        branchList: [],
       };
     },
     mounted() {
@@ -37,15 +37,36 @@
     },
     methods: {
       getBranchList: function () {
+        // var params = {
+        //   source: "archives",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "typeid",
+        //     operator: "EQ",
+        //     value: 5
+        //   }])
+        // };
         var params = {
-          source: "archives",
-          conditions: JSON.stringify([{
-            fieldName: "typeid",
-            operator: "EQ",
-            value: 5
-          }])
-        };
-        http.get("/test.php?action=branchList", params).then(res => {
+          action:'search',
+          source:'archives',
+          params:JSON.stringify(
+              [{
+              condition:'and',
+              data:[
+                  {
+                  condition:'and',
+                  data:[
+                      {
+                      field:'typeid',
+                      operator:'EQ',
+                      value:'5'
+                      }
+                  ]
+                  }
+              ]
+              }]
+          )
+        }
+        http.get("/doAction.php", params).then(res => {
           this.branchList = res.data;
         })
       },
