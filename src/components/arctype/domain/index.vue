@@ -29,7 +29,7 @@
     data() {
       return {
         baseUrl: baseInfo.baseUrl,
-        domainList: null,
+        domainList: [],
       };
     },
     mounted() {
@@ -37,21 +37,47 @@
     },
     methods: {
       getDomainList() {
+        // var params = {
+        //   source: "archives",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "typeid",
+        //     operator: "EQ",
+        //     value: 3
+        //   }, {
+        //     fieldName: "arcrank",
+        //     operator: "EQ",
+        //     value: -2
+        //   }])
+        // };
         var params = {
-          source: "archives",
-          conditions: JSON.stringify([{
-            fieldName: "typeid",
-            operator: "EQ",
-            value: 3
-          }, {
-            fieldName: "arcrank",
-            operator: "EQ",
-            value: -2
-          }])
-        };
-        http.get("/test.php?action=domainList", params).then(res => {
+          action:'search',
+          source:'archives',
+          params:JSON.stringify(
+              [{
+              condition:'and',
+              data:[
+                  {
+                  condition:'and',
+                  data:[
+                      {
+                      field:'typeid',
+                      operator:'EQ',
+                      value:'3'
+                      },
+                      {
+                      field:'arcrank',
+                      operator:'EQ',
+                      value:'-2'
+                      }
+                  ]
+                  }
+              ]
+              }]
+          )
+        }
+        http.get("/doAction.php", params).then(res => {
           this.domainList = res.data;
-          console.log(res.data);
+          // console.log(res.data);
         });
 
       },

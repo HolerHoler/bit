@@ -31,27 +31,61 @@
     components: {},
     data() {
       return {
-        hotArticle: null,
+        hotArticle: {
+          title:'',
+          shorttitle:'',
+          writer:'',
+          body:''
+        },
       };
     },
     mounted() {
       let aid = this.$route.params.aid;
-      console.log(aid);
+      // console.log(aid);
       this.getHotArticle(aid);
     },
     methods: {
       getHotArticle(aid) {
+        // var params = {
+        //   source: "article",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "aid",
+        //     operator: "EQ",
+        //     value: aid
+        //   }])
+        // };
         var params = {
-          source: "article",
-          conditions: JSON.stringify([{
-            fieldName: "aid",
-            operator: "EQ",
-            value: aid
-          }])
-        };
-        http.get("/test.php?&action=hotArticle&aid=" + aid, params).then(res => {
+          action:'search',
+          source:'addonarticle',
+          withCode:'lj',
+          withData:JSON.stringify({
+            source:'archives',
+            srcKey:'aid',
+            key:'id',
+            whereAlia:'addonarticle'
+          }),
+          params:JSON.stringify(
+              [{
+              condition:'and',
+              data:[
+                  {
+                  condition:'and',
+                  data:[
+                      {
+                      field:'aid',
+                      operator:'EQ',
+                      value:aid
+                      }
+                  ]
+                  }
+              ]
+              }]
+          ),
+          resultStatus:1
+        }
+        http.get("/doAction.php", params).then(res => {
           this.hotArticle = res.data;
-          console.log(res);
+          // console.log(res);
         });
 
       },

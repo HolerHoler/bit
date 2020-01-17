@@ -3,6 +3,9 @@ import qs from "qs";
 import {
     timeout
 } from "q";
+import urls from './baseInfo';
+// import urls from './baseInfo';
+import message from 'ant-design-vue/es/message';
 
 const isDev = process.env.NODE_ENV === "development";
 let axiosBaseUrl = '';
@@ -17,7 +20,10 @@ if (isDev) {
 
 }
 
+// }
+// console.log(urls.baseUrl);
 const service = axios.create({
+    //  baseURL: urls.baseUrl,
     baseURL: axiosBaseUrl,
     timeout: 5000,
     crossDomain: true,
@@ -48,7 +54,12 @@ export default {
             service.get(url, {
                 params: params
             }).then(res => {
-                resolve(res.data);
+                if (res.data.code == 0) {
+                    // message.success(res.data.msg);
+                    resolve(res.data);
+                } else {
+                    message.error(res.data.msg);
+                }
             }).catch(err => {
                 reject(err)
             })

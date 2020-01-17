@@ -34,7 +34,7 @@
         data() {
             return {
                 baseUrl: baseInfo.baseUrl,
-                managementList: null,
+                managementList: [],
             };
         },
         mounted() {
@@ -42,21 +42,51 @@
         },
         methods: {
             getManagementList() {
+                // var params = {
+                //     source: "archives",
+                //     conditions: JSON.stringify([{
+                //         fieldName: "typeid",
+                //         operator: "EQ",
+                //         value: 3
+                //     }, {
+                //         fieldName: "arcrank",
+                //         operator: "EQ",
+                //         value: -2
+                //     }])
+                // };
                 var params = {
-                    source: "archives",
-                    conditions: JSON.stringify([{
-                        fieldName: "typeid",
-                        operator: "EQ",
-                        value: 3
-                    }, {
-                        fieldName: "arcrank",
-                        operator: "EQ",
-                        value: -2
-                    }])
-                };
-                http.get("/test.php?action=managementList", params).then(res => {
+                    action:'search',
+                    source:'archives',
+                    withCode:'lj',
+                    withData:JSON.stringify({
+                        source:'addonarticle',
+                        srcKey:'id',
+                        key:'aid',
+                        whereAlia:'archives'
+                    }),
+                    params:JSON.stringify(
+                        [{
+                        condition:'and',
+                        data:[
+                            {
+                            condition:'and',
+                            data:[
+                                {
+                                field:'typeid',
+                                operator:'EQ',
+                                value:4
+                                }
+                            ]
+                            }
+                        ]
+                        }]
+                    ),
+                    order:'ASC',
+                    orderData:'weight'
+                }
+                http.get("/doAction.php", params).then(res => {
                     this.managementList = res.data;
-                    console.log(res.data);
+                    // console.log(res.data);
                 });
 
             }

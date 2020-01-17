@@ -150,9 +150,9 @@
         newsList: newsList,
         loading: false,
         busy: false,
-        branchList: null,
-        domainList: null,
-        dynamicList: null,
+        branchList: [],
+        domainList: [],
+        dynamicList: [],
         listData: [{
             title: "无缝滚动第一行无缝滚动第一行",
             date: "2017-12-16"
@@ -211,44 +211,98 @@
       },
       // 获取业务领域
       getDomainList() {
+        // var params = {
+        //   source: "archives",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "typeid",
+        //     operator: "EQ",
+        //     value: 3
+        //   }, {
+        //     fieldName: "arcrank",
+        //     operator: "EQ",
+        //     value: -2
+        //   }])
+        // };
         var params = {
-          source: "archives",
-          conditions: JSON.stringify([{
-            fieldName: "typeid",
-            operator: "EQ",
-            value: 3
-          }, {
-            fieldName: "arcrank",
-            operator: "EQ",
-            value: -2
-          }])
-        };
-        http.get("/test.php?action=domainList", params).then(res => {
+          action:'search',
+          source:'archives',
+          params:JSON.stringify(
+            [{
+              condition:'and',
+              data:[
+                {
+                  condition:'and',
+                  data:[
+                    {
+                      field:'typeid',
+                      operator:'EQ',
+                      value:'3'
+                    },
+                    {
+                      field:'arcrank',
+                      operator:'EQ',
+                      value:'-2'
+                    }
+                  ]
+                }
+              ]
+            }]
+          )
+        }
+        http.get("/doAction.php", params).then(res => {
           var domainList = res.data;
           this.domainList = domainList.slice(0, 4);
-          console.log(this.domainList);
+          // console.log(this.domainList);
         });
       },
       // 获取分支机构
       getBranchList() {
+        // var params = {
+        //   source: "archives",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "typeid",
+        //     operator: "EQ",
+        //     value: 5
+        //   }])
+        // };
         var params = {
-          source: "archives",
-          conditions: JSON.stringify([{
-            fieldName: "typeid",
-            operator: "EQ",
-            value: 5
-          }])
-        };
-        http.get("/test.php?action=branchList", params).then(res => {
+          action:'search',
+          source:'archives',
+          params:JSON.stringify(
+            [{
+              condition:'and',
+              data:[
+                {
+                  condition:'and',
+                  data:[
+                    {
+                      field:'typeid',
+                      operator:'EQ',
+                      value:'5'
+                    }
+                  ]
+                }
+              ]
+            }]
+          )
+        }
+        http.get("/doAction.php", params).then(res => {
           this.branchList = res.data;
         })
       },
       // 获取公司动态
       getDynamicList() {
-        http.get("/test.php?action=dynamicList&typeid=6").then(res => {
+        var params = {
+          action:'dynamicList',
+          data:JSON.stringify({typeId:6}),
+          page: 1,
+          pageSize: 4,
+        };
+        http.get("/doAction.php",params).then(res => {
           var resData = res.data;
-          console.log(this.domainList);
+          // console.log(this.domainList);
           this.dynamicList = resData.data.slice(0, 4);
+          // console.log(this.domainList);
           this.pagination = {
             page: resData.page,
             pageSize: resData.pageSize,

@@ -52,7 +52,7 @@
     data() {
       return {
         baseUrl: baseInfo.baseUrl,
-        dynamicList: null,
+        dynamicList: [],
         pagination: {
           page: 1,
           pageSize: 8,
@@ -65,19 +65,25 @@
     },
     methods: {
       getDynamicList(page, pageSize) {
-        var params = {
-          source: "archives",
-          conditions: JSON.stringify([{
-            fieldName: "typeid",
-            operator: "EQ",
-            value: 6
-          }]),
+         var params = {
+          action:'dynamicList',
+          data:JSON.stringify({typeId:6}),
           page: page,
           pageSize: pageSize,
         };
-        http.get("/test.php?action=dynamicList&typeid=6", params).then(res => {
+        // var params = {
+        //   source: "archives",
+        //   conditions: JSON.stringify([{
+        //     fieldName: "typeid",
+        //     operator: "EQ",
+        //     value: 6
+        //   }]),
+        //   page: page,
+        //   pageSize: pageSize,
+        // };
+        http.get("/doAction.php",params).then(res => {
           var resData = res.data;
-          console.log(resData);
+          // console.log(res);
           this.dynamicList = resData.data;
 
           this.pagination = {
@@ -88,7 +94,7 @@
         });
       },
       onPageChange(page, pageSize) {
-        console.log(page, pageSize);
+        // console.log(page, pageSize);
         this.getDynamicList(page, pageSize);
       },
 

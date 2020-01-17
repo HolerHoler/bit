@@ -142,15 +142,36 @@
         },
         methods: {
             getMenuList() {
+                // var params = {
+                //     source: "arctype",
+                //     conditions: JSON.stringify([{
+                //         fieldName: "topid",
+                //         operator: "EQ",
+                //         value: 0
+                //     }])
+                // };
                 var params = {
-                    source: "arctype",
-                    conditions: JSON.stringify([{
-                        fieldName: "topid",
-                        operator: "EQ",
-                        value: 0
-                    }])
-                };
-                http.get("/test.php?action=type", params).then(res => {
+                action:'search',
+                source:'arctype',
+                params:JSON.stringify(
+                    [{
+                    condition:'and',
+                    data:[
+                        {
+                        condition:'and',
+                        data:[
+                            {
+                            field:'topid',
+                            operator:'EQ',
+                            value:'0'
+                            }
+                        ]
+                        }
+                    ]
+                    }]
+                )
+                }
+                http.get("/doAction.php", params).then(res => {
 
                     var typeList = res.data;
 
