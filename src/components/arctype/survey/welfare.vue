@@ -32,7 +32,7 @@
       <a-col>
         <!-- <a-pagination size="large" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" /> -->
         <a-pagination size="large" @change="onPageChange" :current="pagination.page" :pageSize="pagination.pageSize"
-          :total="pagination.total" />
+          :total="pagination.total" :showTotal="total=> `Total ${pagination.total} items`" />
       </a-col>
     </a-row>
 
@@ -74,31 +74,33 @@
         //   pageSize: pageSize,
         // };
         //  var params = {
-				// 	action:'search',
-				// 	source:'welfare',
-				// 	params:JSON.stringify(
-				// 		[{
-				// 		condition:'and',
-				// 		data:[
-				// 			{
-				// 			condition:'and',
-				// 			data:[
-				// 				{
-				// 				field:'typeid',
-				// 				operator:'EQ',
-				// 				value:'6'
-				// 				},
-				// 			]
-				// 			}
-				// 		]
-				// 		}]
-				// 	),
+        // 	action:'search',
+        // 	source:'welfare',
+        // 	params:JSON.stringify(
+        // 		[{
+        // 		condition:'and',
+        // 		data:[
+        // 			{
+        // 			condition:'and',
+        // 			data:[
+        // 				{
+        // 				field:'typeid',
+        // 				operator:'EQ',
+        // 				value:'6'
+        // 				},
+        // 			]
+        // 			}
+        // 		]
+        // 		}]
+        // 	),
         //   page: page,
         //   pageSize: pageSize,
-				// }
-         var params = {
-          action:'dynamicList',
-          data:JSON.stringify({typeId:10}),
+        // }
+        var params = {
+          action: 'dynamicList',
+          data: JSON.stringify({
+            typeId: 10
+          }),
           page: page,
           pageSize: pageSize,
         };

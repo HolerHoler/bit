@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <!-- <a-row type="flex" justify="center">
+
+    <!-- <a-row type="flex" justify="center">
         <a-col :span="12">
           <a-form class="searchForm">
             <a-input-search placeholder="input search text" size="large" style="width:100%">
@@ -10,34 +10,34 @@
           </a-form>
         </a-col>
       </a-row> -->
-      <a-row type="flex" justify="center">
-        <a-col :span="24">
-          <a-list itemLayout="vertical" size="large" :dataSource="dynamicList" style="width:100%" :split=false
-            class="dynamicList">
-            <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
-              <a-list-item-meta>
-                <div slot="description">
-                  <p class="description">
-                    {{item.description}}
-                  </p>
-                  <p>{{item.shorttitle}}</p>
-                </div>
-                <a slot="title">
-                  <router-link :to="{ name: 'hotArticle', params:{aid:item.id} }">{{item.title}}</router-link>
-                </a>
-                <a-avatar slot="avatar" :src="baseUrl+item.litpic" style="width:150px; height:120px" shape="square" />
-              </a-list-item-meta>
-            </a-list-item>
-          </a-list>
-        </a-col>
-        <a-col>
-          <!-- <a-pagination size="large" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" /> -->
-          <a-pagination size="large" @change="onPageChange" :current="pagination.page" :pageSize="pagination.pageSize"
-            :total="pagination.total" />
-        </a-col>
-      </a-row>
+    <a-row type="flex" justify="center">
+      <a-col :span="24">
+        <a-list itemLayout="vertical" size="large" :dataSource="dynamicList" style="width:100%" :split=false
+          class="dynamicList">
+          <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
+            <a-list-item-meta>
+              <div slot="description">
+                <p class="description">
+                  {{item.description}}
+                </p>
+                <p>{{item.shorttitle}}</p>
+              </div>
+              <a slot="title">
+                <router-link :to="{ name: 'hotArticle', params:{aid:item.id} }">{{item.title}}</router-link>
+              </a>
+              <a-avatar slot="avatar" :src="baseUrl+item.litpic" style="width:150px; height:120px" shape="square" />
+            </a-list-item-meta>
+          </a-list-item>
+        </a-list>
+      </a-col>
+      <a-col>
+        <!-- <a-pagination size="large" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" /> -->
+        <a-pagination size="large" @change="onPageChange" :current="pagination.page" :pageSize="pagination.pageSize"
+          :total="pagination.total" :showTotal="total=> `Total ${pagination.total} items`" />
+      </a-col>
+    </a-row>
 
-    </div>
+
   </div>
 
 </template>
@@ -65,9 +65,11 @@
     },
     methods: {
       getDynamicList(page, pageSize) {
-         var params = {
-          action:'dynamicList',
-          data:JSON.stringify({typeId:6}),
+        var params = {
+          action: 'dynamicList',
+          data: JSON.stringify({
+            typeId: 6
+          }),
           page: page,
           pageSize: pageSize,
         };
@@ -81,7 +83,7 @@
         //   page: page,
         //   pageSize: pageSize,
         // };
-        http.get("/doAction.php",params).then(res => {
+        http.get("/doAction.php", params).then(res => {
           var resData = res.data;
           // console.log(res);
           this.dynamicList = resData.data;

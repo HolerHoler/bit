@@ -33,7 +33,7 @@
       <a-col>
         <!-- <a-pagination size="large" showQuickJumper :total="50" :showTotal="total=> `Total ${total} items`" /> -->
         <a-pagination size="large" @change="onPageChange" :current="pagination.page" :pageSize="pagination.pageSize"
-          :total="pagination.total" />
+          :total="pagination.total" :showTotal="total=> `Total ${pagination.total} items`" />
       </a-col>
     </a-row>
 
@@ -89,7 +89,7 @@
 								{
 								field:'typeid',
 								operator:'EQ',
-								value:'6'
+								value:'11'
 								},
 							]
 							}

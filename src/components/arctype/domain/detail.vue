@@ -1,28 +1,28 @@
 <template>
   <div>
-    <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <a-row type="flex" justify="center" :gutter="48">
-        <a-col :sm="24" :md="18">
-          <!-- 
+
+    <a-row type="flex" justify="center" :gutter="48">
+      <a-col :sm="24" :md="18">
+        <!-- 
           <h2 style="text-aglin:center">{{domainDetail[0].}}</h2> -->
-          <div class="hotArticle">
-            <h1 class="title">{{domainDetail.title}}</h1>
-            <a-divider type="horizontal"> </a-divider>
-            <div v-html="domainDetail.body">{{domainDetail.body}}</div>
-          </div>
-        </a-col>
-        <!-- 分类列表 -->
-        <a-col :sm="24" :md="6">
-          <a-list bordered :dataSource="domainList" itemLayout="vertical" size="small">
-            <a-list-item slot="renderItem" slot-scope="item, index">
-              <router-link :to="{ name: 'domainDetail', params:{aid:item.id} }">{{item.title}}</router-link>
-            </a-list-item>
-            <span slot="header">业务领域
-            </span>
-          </a-list>
-        </a-col>
-      </a-row>
-    </div>
+        <div class="hotArticle">
+          <h1 class="title">{{domainDetail.title}}</h1>
+          <a-divider type="horizontal" style="background:#10a1f5"> </a-divider>
+          <div v-html="domainDetail.body">{{domainDetail.body}}</div>
+        </div>
+      </a-col>
+      <!-- 分类列表 -->
+      <a-col :sm="24" :md="6">
+        <a-list bordered :dataSource="domainList" itemLayout="vertical" size="small">
+          <a-list-item slot="renderItem" slot-scope="item, index">
+            <router-link :to="{ name: 'domainDetail', params:{aid:item.id} }">{{item.title}}</router-link>
+          </a-list-item>
+          <span slot="header">业务领域
+          </span>
+        </a-list>
+      </a-col>
+    </a-row>
+
   </div>
 </template>
 
@@ -64,33 +64,29 @@
         //   }])
         // };
         var params = {
-          action:'search',
-          source:'addonarticle',
-          withCode:'lj',
-          withData:JSON.stringify({
-            source:'archives',
-            srcKey:'aid',
-            key:'id',
-            whereAlia:'addonarticle'
+          action: 'search',
+          source: 'addonarticle',
+          withCode: 'lj',
+          withData: JSON.stringify({
+            source: 'archives',
+            srcKey: 'aid',
+            key: 'id',
+            whereAlia: 'addonarticle'
           }),
-          params:JSON.stringify(
-              [{
-              condition:'and',
-              data:[
-                  {
-                  condition:'and',
-                  data:[
-                      {
-                      field:'aid',
-                      operator:'EQ',
-                      value:aid
-                      }
-                  ]
-                  }
-              ]
+          params: JSON.stringify(
+            [{
+              condition: 'and',
+              data: [{
+                condition: 'and',
+                data: [{
+                  field: 'aid',
+                  operator: 'EQ',
+                  value: aid
+                }]
               }]
+            }]
           ),
-          resultStatus:1
+          resultStatus: 1
         }
         http.get("/doAction.php", params).then(res => {
           this.domainDetail = res.data;
@@ -111,29 +107,26 @@
         //   }])
         // };
         var params = {
-          action:'search',
-          source:'archives',
-          params:JSON.stringify(
-              [{
-              condition:'and',
-              data:[
-                  {
-                  condition:'and',
-                  data:[
-                      {
-                      field:'typeid',
-                      operator:'EQ',
-                      value:3
-                      },
-                       {
-                      field:'arcrank',
-                      operator:'EQ',
-                      value:-2
-                      }
-                  ]
+          action: 'search',
+          source: 'archives',
+          params: JSON.stringify(
+            [{
+              condition: 'and',
+              data: [{
+                condition: 'and',
+                data: [{
+                    field: 'typeid',
+                    operator: 'EQ',
+                    value: 3
                   },
-              ]
-              }]
+                  {
+                    field: 'arcrank',
+                    operator: 'EQ',
+                    value: -2
+                  }
+                ]
+              }, ]
+            }]
           )
         }
         http.get("/doAction.php", params).then(res => {
@@ -179,11 +172,13 @@
     width: 100%;
 
 
-    .ant-list-header {
-      width: 100%;
-      height: 500px;
+    /deep/ .ant-list-header {
+
+      background-color: #10a1f5;
 
       span {
+        background-color: #10a1f5;
+        color: white;
         font-size: 16px;
         font-weight: bold
       }
@@ -194,8 +189,9 @@
       height: 40px;
 
       a {
+        color: #808080;
         line-height: 20px;
-        font-size: 14px;
+        font-size: 12px;
       }
 
       a:hover {

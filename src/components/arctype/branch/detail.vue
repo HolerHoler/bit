@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-            <div class="branchDetail">
 
-                <div v-html="branchDetail.body">{{branchDetail.body}}</div>
-            </div>
-            <div class="backButton">
-                <a-button @click="goBackOne()" size="large">返回</a-button>
-            </div>
+        <div class="branchDetail">
+
+            <div v-html="branchDetail.body">{{branchDetail.body}}</div>
+        </div>
+        <div class="backButton">
+            <a-button @click="goBackOne()" size="large">返回</a-button>
         </div>
     </div>
+
 </template>
 
 
@@ -40,33 +40,29 @@
                 //     }])
                 // };
                 var params = {
-                action:'search',
-                source:'addonarticle',
-                withCode:'lj',
-                withData:JSON.stringify({
-                    source:'archives',
-                    srcKey:'aid',
-                    key:'id',
-                    whereAlia:'addonarticle'
-                }),
-                params:JSON.stringify(
-                    [{
-                    condition:'and',
-                    data:[
-                        {
-                        condition:'and',
-                        data:[
-                            {
-                            field:'aid',
-                            operator:'EQ',
-                            value:aid
-                            }
-                        ]
-                        }
-                    ]
-                    }]
-                ),
-                resultStatus:1
+                    action: 'search',
+                    source: 'addonarticle',
+                    withCode: 'lj',
+                    withData: JSON.stringify({
+                        source: 'archives',
+                        srcKey: 'aid',
+                        key: 'id',
+                        whereAlia: 'addonarticle'
+                    }),
+                    params: JSON.stringify(
+                        [{
+                            condition: 'and',
+                            data: [{
+                                condition: 'and',
+                                data: [{
+                                    field: 'aid',
+                                    operator: 'EQ',
+                                    value: aid
+                                }]
+                            }]
+                        }]
+                    ),
+                    resultStatus: 1
                 }
                 http.get("/doAction.php", params).then(res => {
                     this.branchDetail = res.data;

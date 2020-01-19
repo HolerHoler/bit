@@ -1,23 +1,23 @@
 <template>
   <div>
-    <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <a-tabs defaultActiveKey="0" type="card" :size="'large'">
-        <template v-for="tab in tabList">
-          <a-tab-pane :tab="tab.typename" :key="tab.key">
-            <component-survey v-if="tab.key==='0'"></component-survey>
-            <component-team v-if="tab.key==='1'"></component-team>
-            <component-welfare v-if="tab.key==='2'"></component-welfare>
-          </a-tab-pane>
-          <!-- <a-tab-pane tab="Tab 2" key="2">
+
+    <a-tabs defaultActiveKey="0" type="card" :size="'large'">
+      <template v-for="tab in tabList">
+        <a-tab-pane :tab="tab.typename" :key="tab.key">
+          <component-survey v-if="tab.key==='0'"></component-survey>
+          <component-team v-if="tab.key==='1'"></component-team>
+          <component-welfare v-if="tab.key==='2'"></component-welfare>
+        </a-tab-pane>
+        <!-- <a-tab-pane tab="Tab 2" key="2">
             <component-team></component-team>
           </a-tab-pane>
           <a-tab-pane tab="Tab 3" key="3">
             <component-welfare></component-welfare>
           </a-tab-pane> -->
-        </template>
-      </a-tabs>
-    </div>
+      </template>
+    </a-tabs>
   </div>
+
 </template>
 
 
@@ -74,29 +74,26 @@
         //   }])
         // };
         var params = {
-          action:'search',
-          source:'arctype',
-          params:JSON.stringify(
-              [{
-              condition:'and',
-              data:[
+          action: 'search',
+          source: 'arctype',
+          params: JSON.stringify(
+            [{
+              condition: 'and',
+              data: [{
+                condition: 'or',
+                data: [{
+                    field: 'topid',
+                    operator: 'EQ',
+                    value: '2'
+                  },
                   {
-                  condition:'or',
-                  data:[
-                      {
-                      field:'topid',
-                      operator:'EQ',
-                      value:'2'
-                      },
-                      {
-                      field:'id',
-                      operator:'EQ',
-                      value:'2'
-                      }
-                  ]
+                    field: 'id',
+                    operator: 'EQ',
+                    value: '2'
                   }
-              ]
+                ]
               }]
+            }]
           )
         }
         http.get("/doAction.php", params).then(res => {

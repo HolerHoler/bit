@@ -1,43 +1,59 @@
 <template>
-    <div>
-        <div>
-            <a-row :gutter="16">
-                <a-col :xs="24" :md="8">
-                    <a-row>
-                        <a-col :xs="24" :lg="10">
-                            <span style="line-height:100px"> <img src="@/assets/images/bit/logo.jpg" /></span>
-                        </a-col>
-                        <a-col :xs="22" :lg="14">
-                            <span style="line-height:100px"> <img src="@/assets/images/bit/wuxian.png" /></span>
-                        </a-col>
-                        <a-col :xs="2" v-if="screenWidth<768">
-                            <span>
-                                <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
-                                    <a-icon :type="'menu-fold'" />
-                                </a-button>
-                            </span>
-                        </a-col>
-                    </a-row>
-                </a-col>
-                <a-col :xs="24" :md="16">
+    <div id="index-header">
+        <!-- <a-row :gutter="8" type="flex" justify="center">
+            <a-col :xs="24" :md="12">
+                <a-row :gutter="8">
+                    <a-col :xs="24" :lg="10">
+                        <img src="@/assets/images/bit/logo.jpg" width="100%" height="100%"
+                            style="vertical-align: middle;" />
+                    </a-col>
+                    <a-col :xs="22" :lg="14">
+                        <img src="@/assets/images/bit/wuxian.png" width="100%" height="100%"
+                            style="vertical-align: middle;" />
+                    </a-col>
 
-                    <div id="nav">
-                        <a-menu :mode="mode" v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
-                            <a-menu-item v-for="menu in menuList " :key="menu.key">
-                                <router-link :to="{path:menu.typedir}">{{menu.typename}}</router-link>
-                            </a-menu-item>
-                            <!-- <a-menu-item>首页</a-menu-item>
-                             <a-menu-item>公司概况 </a-menu-item>
-                        <a-menu-item>业务领域</a-menu-item>
-                        <a-menu-item>管理层信息</a-menu-item>
-                        <a-menu-item>分支结构</a-menu-item>
-                        <a-menu-item>公司动态</a-menu-item> -->
-                        </a-menu>
-                    </div>
-                </a-col>
-            </a-row>
+                </a-row>
+            </a-col>
+            <a-col :xs="24" :md="12">
 
-        </div>
+                <div id="nav">
+                    <a-menu :mode="mode" v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
+                        <a-menu-item v-for="menu in menuList " :key="menu.key">
+                            <router-link :to="{path:menu.typedir}">{{menu.typename}}</router-link>
+                        </a-menu-item>
+                    </a-menu>
+                </div>
+            </a-col>
+        </a-row> -->
+
+
+        <a-row>
+            <a-col :xs="24" :md="4">
+                <img src="@/assets/images/bit/logo.jpg" style="vertical-align: middle;" />
+                <!-- <a-col :xs="2" v-if="screenWidth<768">
+                        <span>
+                            <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
+                                <a-icon :type="'menu-fold'" />
+                            </a-button>
+                        </span>
+                    </a-col> -->
+            </a-col>
+            <a-col :xs="24" :md="6">
+                <img src="@/assets/images/bit/wuxian.png" style="vertical-align: middle;" />
+                <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed" v-if="screenWidth<768">
+                    <a-icon :type="'menu-fold'" />
+                </a-button>
+            </a-col>
+            <a-col :xs="24" :md="14">
+                <div id="nav">
+                    <a-menu :mode="mode" v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
+                        <a-menu-item v-for="menu in menuList " :key="menu.key">
+                            <router-link :to="{path:menu.typedir}">{{menu.typename}}</router-link>
+                        </a-menu-item>
+                    </a-menu>
+                </div>
+            </a-col>
+        </a-row>
     </div>
 </template>
 
@@ -151,25 +167,21 @@
                 //     }])
                 // };
                 var params = {
-                action:'search',
-                source:'arctype',
-                params:JSON.stringify(
-                    [{
-                    condition:'and',
-                    data:[
-                        {
-                        condition:'and',
-                        data:[
-                            {
-                            field:'topid',
-                            operator:'EQ',
-                            value:'0'
-                            }
-                        ]
-                        }
-                    ]
-                    }]
-                )
+                    action: 'search',
+                    source: 'arctype',
+                    params: JSON.stringify(
+                        [{
+                            condition: 'and',
+                            data: [{
+                                condition: 'and',
+                                data: [{
+                                    field: 'topid',
+                                    operator: 'EQ',
+                                    value: '0'
+                                }]
+                            }]
+                        }]
+                    )
                 }
                 http.get("/doAction.php", params).then(res => {
 
@@ -204,41 +216,57 @@
     };
 </script>
 
-<style>
-    #nav {
-        border: 0;
-        float: right;
-        width: 100%;
-
-    }
-
-    #nav .ant-menu-horizontal {
-        background: #007bff;
-    }
-
-    #nav .ant-menu-vertical {
-        background: #28a745;
-    }
-
-    #nav .ant-menu-horizontal>.ant-menu-item {
-        height: 100px;
+<style lang="scss" scoped>
+    #index-header {
         line-height: 100px;
-        min-width: 10%;
-        /* border-top: 2px solid transparent; */
-    }
 
-    #nav>.ant-menu-item {
-        text-align: center;
-    }
+        >img {
+            display: flex;
+            align-items: center
+        }
 
-    #nav .ant-menu-item a {
+        #nav {
+            border: 0;
+            width: 100%;
 
-        font-size: 18px;
-        color: #FFF;
-    }
+            .ant-menu-horizontal {
+                background: #007bff;
+                text-align: right !important;
 
-    #nav .ant-menu-item a:hover {
+                .ant-menu-item {
+                    height: 100px;
+                    line-height: 100px;
+                    min-width: 10%;
 
-        color: #FB8264;
+                    /* border-top: 2px solid transparent; */
+                    a {
+                        font-size: 18px;
+                        color: #FFF;
+                    }
+
+                    a:hover {
+                        color: #FB8264;
+                    }
+
+                }
+            }
+
+            .ant-menu-vertical {
+                background: #048a90;
+                width: 100%;
+
+                .ant-menu-item {
+                    height: 45px;
+
+                    a {
+                        color: #FFF
+                    }
+
+
+                }
+
+
+            }
+        }
     }
 </style>

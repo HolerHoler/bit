@@ -4,27 +4,15 @@
       <a-back-top style="right:100px;" />
       <!-- 头部 -->
       <a-layout-header>
-        <a-row type="flex" justify="center">
-          <a-col :span="24" :offset="6">
-            <index-header></index-header>
-          </a-col>
-        </a-row>
+        <index-header style="padding:0 10%"></index-header>
       </a-layout-header>
       <!-- 正文 -->
       <a-layout-content>
-        <a-row type="flex" justify="center">
-          <a-col :span="24" :offset="6">
-            <router-view> </router-view>
-          </a-col>
-        </a-row>
+        <router-view style="padding:100px 10%"> </router-view>
       </a-layout-content>
       <!-- 底部 -->
       <a-layout-footer>
-        <a-row type="flex" justify="center">
-          <a-col :span="24" :offset="6">
-            <index-footer></index-footer>
-          </a-col>
-        </a-row>
+        <index-footer style="padding:0 10%"></index-footer>
       </a-layout-footer>
     </a-layout>
   </div>
@@ -58,7 +46,7 @@
 <style>
   #components-layout-demo-basic {
     /* text-align: center; */
-    overflow-x: hidden !important;
+
   }
 
   /* #components-layout-demo-basic .ant-layout-header,
@@ -70,12 +58,15 @@
   #components-layout-demo-basic .ant-layout-header {
     /* min-height: 150px; */
     /* height: 100px; */
+    width: 100%;
     background: #007bff;
     height: auto;
     min-height: 100px;
+
   }
 
   #components-layout-demo-basic .ant-layout-footer {
+    width: 100%;
     background: #474f5c;
     line-height: 1.5;
   }

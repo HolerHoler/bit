@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <div class="hotArticle">
-        <h1 class="title">{{hotArticle.title}}</h1>
-        <div class="info">
-          <span>发布日期：{{hotArticle.shorttitle}}</span><span style="margin-left:20px">作者：{{hotArticle.writer}}</span>
-        </div>
 
-        <a-divider type="horizontal"> </a-divider>
+    <div class="hotArticle">
+      <h1 class="title">{{hotArticle.title}}</h1>
+      <div class="info">
+        <span>发布日期：{{hotArticle.shorttitle}}</span><span style="margin-left:20px">作者：{{hotArticle.writer}}</span>
+      </div>
 
-        <!-- <div class="description">
+      <a-divider type="horizontal"> </a-divider>
+
+      <!-- <div class="description">
           <p><span style="">{{hotArticle.description}}</span></p>
         </div> -->
 
-        <div v-html="hotArticle.body">{{hotArticle.body}}</div>
-      </div>
-      <div class="backButton">
-        <a-button @click="goBackOne()" size="large">返回</a-button>
-      </div>
+      <div v-html="hotArticle.body">{{hotArticle.body}}</div>
+    </div>
+    <div class="backButton">
+      <a-button @click="goBackOne()" size="large">返回</a-button>
     </div>
   </div>
+
 </template>
 
 
@@ -32,10 +32,10 @@
     data() {
       return {
         hotArticle: {
-          title:'',
-          shorttitle:'',
-          writer:'',
-          body:''
+          title: '',
+          shorttitle: '',
+          writer: '',
+          body: ''
         },
       };
     },
@@ -55,33 +55,29 @@
         //   }])
         // };
         var params = {
-          action:'search',
-          source:'addonarticle',
-          withCode:'lj',
-          withData:JSON.stringify({
-            source:'archives',
-            srcKey:'aid',
-            key:'id',
-            whereAlia:'addonarticle'
+          action: 'search',
+          source: 'addonarticle',
+          withCode: 'lj',
+          withData: JSON.stringify({
+            source: 'archives',
+            srcKey: 'aid',
+            key: 'id',
+            whereAlia: 'addonarticle'
           }),
-          params:JSON.stringify(
-              [{
-              condition:'and',
-              data:[
-                  {
-                  condition:'and',
-                  data:[
-                      {
-                      field:'aid',
-                      operator:'EQ',
-                      value:aid
-                      }
-                  ]
-                  }
-              ]
+          params: JSON.stringify(
+            [{
+              condition: 'and',
+              data: [{
+                condition: 'and',
+                data: [{
+                  field: 'aid',
+                  operator: 'EQ',
+                  value: aid
+                }]
               }]
+            }]
           ),
-          resultStatus:1
+          resultStatus: 1
         }
         http.get("/doAction.php", params).then(res => {
           this.hotArticle = res.data;

@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div style="width: 80%;padding-top:100px;padding-bottom:100px">
-      <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="domainList">
-        <a-list-item slot="renderItem" slot-scope="item, index">
-          <a-card :hoverable=true @click="jumpDomainDetail(item.id)">
-            <img alt="example" :src="baseUrl+item.litpic" slot="cover" />
-            <a-card-meta>
-              <template slot="title">
-                <div style="text-align:center"> <span style="font-size:16px;font-weight:bold">{{item.title}}</span>
-                </div>
-              </template>
-            </a-card-meta>
-          </a-card>
-        </a-list-item>
-      </a-list>
-    </div>
+
+    <a-list :grid="{ gutter: 16, xs: 1, sm: 1,md:3}" :dataSource="domainList">
+      <a-list-item slot="renderItem" slot-scope="item, index">
+        <a-card :hoverable=true @click="jumpDomainDetail(item.id)">
+          <img alt="example" :src="baseUrl+item.litpic" slot="cover" />
+          <a-card-meta>
+            <template slot="title">
+              <div style="text-align:center"> <span style="font-size:16px;font-weight:bold">{{item.title}}</span>
+              </div>
+            </template>
+          </a-card-meta>
+        </a-card>
+      </a-list-item>
+    </a-list>
+
 
   </div>
 </template>
@@ -50,29 +50,26 @@
         //   }])
         // };
         var params = {
-          action:'search',
-          source:'archives',
-          params:JSON.stringify(
-              [{
-              condition:'and',
-              data:[
+          action: 'search',
+          source: 'archives',
+          params: JSON.stringify(
+            [{
+              condition: 'and',
+              data: [{
+                condition: 'and',
+                data: [{
+                    field: 'typeid',
+                    operator: 'EQ',
+                    value: '3'
+                  },
                   {
-                  condition:'and',
-                  data:[
-                      {
-                      field:'typeid',
-                      operator:'EQ',
-                      value:'3'
-                      },
-                      {
-                      field:'arcrank',
-                      operator:'EQ',
-                      value:'-2'
-                      }
-                  ]
+                    field: 'arcrank',
+                    operator: 'EQ',
+                    value: '-2'
                   }
-              ]
+                ]
               }]
+            }]
           )
         }
         http.get("/doAction.php", params).then(res => {
