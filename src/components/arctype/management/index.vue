@@ -77,7 +77,7 @@
                             }]
                         }]
                     ),
-                    order: 'ASC',
+                    order: 'DESC',
                     orderData: 'weight'
                 }
                 http.get("/doAction.php", params).then(res => {

@@ -38,7 +38,8 @@
       };
     },
     created() {},
-    methods: {}
+    methods: {},
+    mounted(){console.log(1);}
   };
 </script>
 

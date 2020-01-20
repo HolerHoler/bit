@@ -192,7 +192,7 @@
       };
     },
     created() {},
-    mounted() {
+    mounted() {console.log(1);
       this.getDomainList();
       this.getBranchList();
       this.getDynamicList();
