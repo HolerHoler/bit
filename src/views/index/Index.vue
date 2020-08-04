@@ -4,7 +4,7 @@
       <a-back-top style="right:100px;" />
       <!-- 头部 -->
       <a-layout-header>
-        <index-header style="padding:0 10%"></index-header>
+        <index-header style=""></index-header>
       </a-layout-header>
       <!-- 正文 -->
       <a-layout-content>
