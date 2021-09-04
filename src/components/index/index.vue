@@ -21,7 +21,7 @@
 
 
         <template class="ant-card-actions" slot="actions">
-          <a-button type="primary" size="large" shape="round">
+          <a-button type="default" size="large" shape="round">
             <router-link :to="{path:'/domain'}">查看更多</router-link>
           </a-button>
         </template>
@@ -84,7 +84,7 @@
         </a-list>
 
         <template class="ant-card-actions" slot="actions">
-          <a-button type="primary" size="large" shape="round">
+          <a-button type="default" size="large" shape="round">
             <router-link :to="{path:'/dynamic'}">查看更多</router-link>
           </a-button>
         </template>

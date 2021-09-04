@@ -27,8 +27,11 @@
     </a-row>-->
 
     <a-row>
-      <a-col :xs="24"  :md="24" :lg="4">
-        <img src="@/assets/images/bit/logo.jpg" style="vertical-align: middle;" />
+      <a-col :xs="24" :md="24" :lg="4">
+        <img
+          src="@/assets/images/bit/logo.jpg"
+          style="vertical-align: middle"
+        />
         <!-- <a-col :xs="2" v-if="screenWidth<768">
                         <span>
                             <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
@@ -37,22 +40,30 @@
                         </span>
         </a-col>-->
       </a-col>
-      <a-col :xs="24"  :md="24" :lg="6">
-        <img src="@/assets/images/bit/wuxian.png" style="vertical-align: middle;" />
+      <a-col :xs="24" :md="24" :lg="6">
+        <img
+          src="@/assets/images/bit/wuxian.png"
+          style="vertical-align: middle"
+        />
         <a-button
           type="primary"
           style="margin-bottom: 16px"
           @click="toggleCollapsed"
-          v-if="screenWidth<768"
+          v-if="screenWidth < 768"
         >
           <a-icon :type="'menu-fold'" />
         </a-button>
       </a-col>
-      <a-col :xs="24"  :md="24" :lg="14">
+      <a-col :xs="24" :md="24" :lg="14">
         <div id="nav">
-          <a-menu :mode="mode" v-if="mode==='horizontal'||(collapsed&&mode==='vertical')">
-            <a-menu-item v-for="menu in menuList " :key="menu.key">
-              <router-link :to="{path:menu.typedir}">{{menu.typename}}</router-link>
+          <a-menu
+            :mode="mode"
+            v-if="mode === 'horizontal' || (collapsed && mode === 'vertical')"
+          >
+            <a-menu-item v-for="menu in menuList" :key="menu.key">
+              <router-link :to="{ path: menu.typedir }">{{
+                menu.typename
+              }}</router-link>
             </a-menu-item>
           </a-menu>
         </div>
@@ -68,33 +79,33 @@ const menuList = [
   {
     key: "1",
     typename: "首页",
-    typedir: "/index"
+    typedir: "/index",
   },
   {
     key: "2",
     typename: "公司概况",
-    typedir: "/survey"
+    typedir: "/survey",
   },
   {
     key: "3",
     typename: "业务领域",
-    typedir: "/domain"
+    typedir: "/domain",
   },
   {
     key: "4",
     typename: "管理层信息",
-    typedir: "/management"
+    typedir: "/management",
   },
   {
     key: "5",
     typename: "分支结构",
-    typedir: "/branch"
+    typedir: "/branch",
   },
   {
     key: "6",
     typename: "公司动态",
-    typedir: "/dynamic"
-  }
+    typedir: "/dynamic",
+  },
 ];
 
 export default {
@@ -106,7 +117,7 @@ export default {
       screenWidth: document.body.clientWidth,
       screenHeight: document.body.clientHeight,
       mode: "horizontal",
-      collapsed: false
+      collapsed: false,
     };
   },
   watch: {
@@ -117,9 +128,9 @@ export default {
         this.screenWidth = val;
         this.timer = true;
         let that = this;
-        setTimeout(function() {
+        setTimeout(function () {
           // 打印screenWidth变化的值
-          console.log(that.screenWidth);
+          // console.log(that.screenWidth);
           that.timer = false;
         }, 400);
       }
@@ -137,13 +148,13 @@ export default {
         this.screenHeight = val;
         this.timer = true;
         let that = this;
-        setTimeout(function() {
+        setTimeout(function () {
           // 打印screenWidth变化的值
-          console.log(that.screenHeight);
+          // console.log(that.screenHeight);
           that.timer = false;
         }, 400);
       }
-    }
+    },
   },
   created() {},
   mounted() {
@@ -189,22 +200,22 @@ export default {
                   {
                     field: "topid",
                     operator: "EQ",
-                    value: "0"
-                  }
-                ]
-              }
-            ]
-          }
-        ])
+                    value: "0",
+                  },
+                ],
+              },
+            ],
+          },
+        ]),
       };
-      http.get("/doAction.php", params).then(res => {
+      http.get("/doAction.php", params).then((res) => {
         var typeList = res.data;
 
         var newList = new Array();
         newList.push({
           key: "0",
           typename: "首页",
-          typedir: "/index"
+          typedir: "/index",
         });
         var j = 1;
         for (let i = 0; i < typeList.length; i++) {
@@ -219,8 +230,8 @@ export default {
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
       console.log(this.collapsed);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -236,7 +247,6 @@ export default {
   #nav {
     border: 0;
     width: 100%;
-    
 
     .ant-menu-horizontal {
       background: #007bff;
